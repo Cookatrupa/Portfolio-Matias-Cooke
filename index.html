@@ -19,15 +19,15 @@
   ::selection { background: #d4a24e; color: #0c0b09; }
 </style>
 </helmet>
-<div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc;">
+<div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc; display: flex; flex-direction: column;">
 
   <nav style="display: flex; justify-content: space-between; align-items: center; padding: 26px 48px; border-bottom: 1px solid rgba(232,228,220,0.12); position: sticky; top: 0; background: rgba(12,11,9,0.92); backdrop-filter: blur(8px); z-index: 10;" data-screen-label="Nav">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; color: #d4a24e;">MATÍAS COOKE</div>
     <div style="display: flex; gap: 28px; font-size: 13.5px; letter-spacing: 0.08em; font-weight: 500;">
       <a href="#proyectos">PROYECTOS</a>
+      <a href="#creditos">CRÉDITOS</a>
       <a href="#archivo">EN RODAJE</a>
       <a href="#digital">DIGITAL</a>
-      <a href="#creditos">CRÉDITOS</a>
       <a href="#bio">BIO</a>
       <a href="#contacto">CONTACTO</a>
     </div>
@@ -43,7 +43,7 @@
     </div>
   </header>
 
-  <section id="proyectos" style="padding: 72px 48px;" data-screen-label="Proyectos">
+  <section id="proyectos" style="padding: 72px 48px; order: 1;" data-screen-label="Proyectos">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">PROYECTOS SELECCIONADOS</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">2022 — 2026</div>
@@ -76,7 +76,7 @@
     </div>
   </section>
 
-  <section id="archivo" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="En rodaje">
+  <section id="archivo" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 3;" data-screen-label="En rodaje">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">EN RODAJE — MATERIAL DE ARCHIVO</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">DETRÁS DE CÁMARA</div>
@@ -95,7 +95,7 @@
       </sc-for>
     </div>
     <div style="columns: 3 300px; column-gap: 20px;">
-      <sc-for list="{{ archivePhotos }}" as="ph" hint-placeholder-count="9">
+      <sc-for list="{{ visiblePhotos }}" as="ph" hint-placeholder-count="6">
         <div onClick="{{ ph.onOpen }}" style="margin: 0 0 20px; cursor: zoom-in; break-inside: avoid; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
           <sc-if value="{{ ph.ready }}" hint-placeholder-val="{{ false }}">
             <div role="img" aria-label="Material de rodaje" style="width: 100%; aspect-ratio: {{ ph.r }}; background-image: url('{{ ph.src }}'); background-size: cover; background-position: center;"></div>
@@ -103,9 +103,12 @@
         </div>
       </sc-for>
     </div>
+    <div style="display: flex; justify-content: center; margin-top: 36px;">
+      <button onClick="{{ togglePhotos }}" style="background: none; border: 1px solid #d4a24e; color: #d4a24e; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; padding: 13px 28px; cursor: pointer;" style-hover="background: #d4a24e; color: #0c0b09;">{{ photosBtnLabel }}</button>
+    </div>
   </section>
 
-  <section id="digital" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contenido digital">
+  <section id="digital" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 4;" data-screen-label="Contenido digital">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTENIDO DIGITAL</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
@@ -124,6 +127,10 @@
           </sc-if>
         </div>
       </sc-for>
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px;">
+      <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d4a24e; font-weight: 500;">SPOTS DE LA CAMPAÑA</h4>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.5);">4 piezas audiovisuales financiadas para difusión</span>
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
       <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
@@ -155,7 +162,7 @@
     </div>
   </section>
 
-  <section id="creditos" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Créditos">
+  <section id="creditos" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 2;" data-screen-label="Créditos">
     <h2 style="margin: 0 0 48px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CRÉDITOS COMPLETOS</h2>
     <div style="display: flex; flex-direction: column; gap: 48px;">
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
@@ -176,7 +183,7 @@
     </div>
   </section>
 
-  <section id="bio" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px;" data-screen-label="Bio">
+  <section id="bio" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 5;" data-screen-label="Bio">
     <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
     <div style="max-width: 680px;">
       <p style="margin: 0; font-size: 23px; line-height: 1.5; font-weight: 300;">Soy organizador antes que otra cosa: la persona que hace que las cosas pasen. Técnico audiovisual con cinco años coordinando equipos, tiempos y logística en producciones de todas las escalas.</p>
@@ -194,7 +201,7 @@
     </div>
   </section>
 
-  <footer id="contacto" style="padding: 72px 48px 56px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contacto">
+  <footer id="contacto" style="padding: 72px 48px 56px; border-top: 1px solid rgba(232,228,220,0.12); order: 6;" data-screen-label="Contacto">
     <h2 style="margin: 0 0 24px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTACTO</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: baseline;">
       <a href="mailto:cookematias@gmail.com" style="font-size: clamp(26px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.01em;">cookematias@gmail.com</a>
@@ -234,7 +241,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
 class Component extends DCLogic {
-  state = { trailerId: null, photoSrc: null, videoSrc: null };
+  state = { trailerId: null, photoSrc: null, videoSrc: null, showAllPhotos: false };
   open(url) {
     const m = (url || "").match(/[?&]v=([\w-]+)/);
     if (m) this.setState({ trailerId: m[1] });
@@ -296,8 +303,7 @@ class Component extends DCLogic {
       c.arrow = c.tr ? "TRAILER ↗" : "";
       c.onOpen = c.tr ? () => this.open(c.tr) : undefined;
     }));
-    return {
-      archivePhotos: [
+    const archivePhotos = [
         ["uploads/20260429_080100.jpg", "2252/4000"],
         ["uploads/IMG-20260526-WA0041.jpg", "1066/600"],
         ["uploads/20251121_182857.jpg", "2252/4000"],
@@ -324,7 +330,11 @@ class Component extends DCLogic {
         ["uploads/20231207_214141.jpg", "3000/4000"],
         ["uploads/20230909_165736.jpg", "3000/4000"],
         ["uploads/20230908_152710.jpg", "4000/2252"],
-      ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) })),
+      ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) }));
+    return {
+      visiblePhotos: this.state.showAllPhotos ? archivePhotos : archivePhotos.slice(0, 6),
+      togglePhotos: () => this.setState(s => ({ showAllPhotos: !s.showAllPhotos })),
+      photosBtnLabel: this.state.showAllPhotos ? "VER MENOS ↑" : `VER TODAS LAS FOTOS (${archivePhotos.length}) ↓`,
       archiveVideos: [
         ["uploads/video-set-01.mp4", "posters/video-set-01.png", "720/1280", "VIDEO DE SET — 01"],
         ["uploads/20251114_040911.mp4", "posters/20251114_040911.png", "1080/1920", "VIDEO DE SET — 02"],
