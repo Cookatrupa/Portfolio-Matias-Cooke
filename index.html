@@ -17,6 +17,15 @@
   a { color: #e8e4dc; text-decoration: none; }
   a:hover { color: #d4a24e; }
   ::selection { background: #d4a24e; color: #0c0b09; }
+  @media (max-width: 720px) {
+    nav { flex-wrap: wrap; gap: 14px 20px; padding: 16px 20px !important; }
+    header, section, footer { padding-left: 20px !important; padding-right: 20px !important; }
+    header { padding-top: 56px !important; padding-bottom: 48px !important; }
+    #bio { grid-template-columns: 1fr !important; gap: 20px !important; }
+    [data-credit-group] { grid-template-columns: 1fr !important; gap: 12px !important; }
+    [data-credit-row] { grid-template-columns: 1fr auto !important; row-gap: 4px !important; }
+    [data-modal] { padding: 14px !important; }
+  }
 </style>
 </helmet>
 <div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc; display: flex; flex-direction: column;">
@@ -68,11 +77,15 @@
           </figure>
         </div>
       </sc-for>
-    </div>
-    <div style="display: flex; align-items: center; gap: 20px; margin-top: 48px;">
-      <div style="flex: 1; height: 1px; background: rgba(232,228,220,0.15);"></div>
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.22em; color: rgba(232,228,220,0.5);">ENTRE OTROS — <a href="#creditos" style="color: #d4a24e;">VER CRÉDITOS COMPLETOS</a></span>
-      <div style="flex: 1; height: 1px; background: rgba(232,228,220,0.15);"></div>
+      <a href="#creditos" style="display: block;">
+        <figure style="margin: 0; height: 100%;" style-hover="transform: translateY(-4px)">
+          <div style="aspect-ratio: 2/3; border: 1px dashed rgba(212,162,78,0.55); background: repeating-linear-gradient(45deg, rgba(232,228,220,0.03) 0 14px, transparent 14px 28px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px; text-align: center;">
+            <div style="font-size: 40px; color: #d4a24e; font-weight: 300; line-height: 1;">+</div>
+            <div style="font-size: 22px; font-weight: 800; letter-spacing: 0.02em; color: #e8e4dc; text-wrap: balance;">ENTRE<br>OTROS</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; color: #d4a24e; border: 1px solid #d4a24e; padding: 9px 14px;">VER CRÉDITOS COMPLETOS ↓</div>
+          </div>
+        </figure>
+      </a>
     </div>
   </section>
 
@@ -166,11 +179,11 @@
     <h2 style="margin: 0 0 48px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CRÉDITOS COMPLETOS</h2>
     <div style="display: flex; flex-direction: column; gap: 48px;">
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
-        <div style="display: grid; grid-template-columns: minmax(200px, 1fr) 3fr; gap: 24px 48px;">
+        <div data-credit-group="1" style="display: grid; grid-template-columns: minmax(200px, 1fr) 3fr; gap: 24px 48px;">
           <h3 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 0.01em;">{{ g.name }}</h3>
           <div style="display: flex; flex-direction: column;">
             <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
-              <div style="display: grid; grid-template-columns: 2fr 1fr 2fr 60px; gap: 16px; padding: 13px 0; border-bottom: 1px solid rgba(232,228,220,0.1); align-items: baseline;">
+              <div data-credit-row="1" style="display: grid; grid-template-columns: 2fr 1fr 2fr 60px; gap: 16px; padding: 13px 0; border-bottom: 1px solid rgba(232,228,220,0.1); align-items: baseline;">
                 <div style="font-size: 15.5px; font-weight: 600;"><span onClick="{{ c.onOpen }}" style="cursor: pointer;">{{ c.t }}</span> <span onClick="{{ c.onOpen }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d4a24e; cursor: pointer;">{{ c.arrow }}</span></div>
                 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.5);">{{ c.f }}</div>
                 <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.65);">{{ c.p }}</div>
@@ -216,21 +229,21 @@
   </footer>
 
   <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeVideo }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px;">
+    <div data-modal="1" onClick="{{ closeVideo }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px;">
       <div style="max-width: 90%; max-height: 90%;">{{ videoEl }}</div>
       <button onClick="{{ closeVideo }}" style="position: absolute; top: 24px; right: 32px; background: none; border: 1px solid rgba(232,228,220,0.4); color: #e8e4dc; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; padding: 10px 18px; cursor: pointer;" style-hover="border-color: #d4a24e; color: #d4a24e;">CERRAR ✕</button>
     </div>
   </sc-if>
 
   <sc-if value="{{ photoOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closePhoto }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out;">
+    <div data-modal="1" onClick="{{ closePhoto }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out;">
       <div role="img" aria-label="Material de rodaje" style="width: 100%; height: 100%; background-image: url('{{ photoSrc }}'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
       <button onClick="{{ closePhoto }}" style="position: absolute; top: 24px; right: 32px; background: none; border: 1px solid rgba(232,228,220,0.4); color: #e8e4dc; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; padding: 10px 18px; cursor: pointer;" style-hover="border-color: #d4a24e; color: #d4a24e;">CERRAR ✕</button>
     </div>
   </sc-if>
 
   <sc-if value="{{ trailerOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeTrailer }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.92); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 48px;">
+    <div data-modal="1" onClick="{{ closeTrailer }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.92); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 48px;">
       <div style="width: min(1100px, 100%); aspect-ratio: 16/9; background: #000; box-shadow: 0 24px 80px rgba(0,0,0,0.8);">
         <iframe src="{{ embedUrl }}" style="width: 100%; height: 100%; border: 0; display: block;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" title="Trailer"></iframe>
       </div>
