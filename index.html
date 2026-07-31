@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0c0b09; }
+  body { font-family: 'Archivo', sans-serif; }
+  a { color: #e8e4dc; text-decoration: none; }
+  a:hover { color: #d4a24e; }
+  ::selection { background: #d4a24e; color: #0c0b09; }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc;">
+
+  <nav style="display: flex; justify-content: space-between; align-items: center; padding: 26px 48px; border-bottom: 1px solid rgba(232,228,220,0.12); position: sticky; top: 0; background: rgba(12,11,9,0.92); backdrop-filter: blur(8px); z-index: 10;" data-screen-label="Nav">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; color: #d4a24e;">MATÍAS COOKE</div>
+    <div style="display: flex; gap: 28px; font-size: 13.5px; letter-spacing: 0.08em; font-weight: 500;">
+      <a href="#proyectos">PROYECTOS</a>
+      <a href="#archivo">EN RODAJE</a>
+      <a href="#digital">DIGITAL</a>
+      <a href="#creditos">CRÉDITOS</a>
+      <a href="#bio">BIO</a>
+      <a href="#contacto">CONTACTO</a>
+    </div>
+  </nav>
+
+  <header style="padding: 96px 48px 72px; border-bottom: 1px solid rgba(232,228,220,0.12);" data-screen-label="Hero">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: #d4a24e; margin-bottom: 20px;">CINE · SERIES · PUBLICIDAD — BUENOS AIRES</div>
+    <h1 style="margin: 0; font-size: clamp(56px, 9vw, 128px); line-height: 0.95; font-weight: 800; font-stretch: 90%; letter-spacing: -0.02em;">MATÍAS<br>COOKE</h1>
+    <p style="margin: 30px 0 0; max-width: 620px; font-size: 19px; line-height: 1.5; font-weight: 300; color: rgba(232,228,220,0.78);">Ayudante de dirección y coordinador de proyectos. Cinco años haciendo que las cosas pasen en rodajes de todas las escalas — para Netflix, Star+, HBO, Prime Video, Disney+ y Paramount+.</p>
+    <div style="display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap;">
+      <a href="uploads/cv_creditos-1785518109679-xe2a.docx" download="CV Matias Cooke 2026.docx" style="display: inline-block; padding: 13px 26px; background: #d4a24e; color: #0c0b09; font-weight: 700; font-size: 14px; letter-spacing: 0.08em;" style-hover="background: #e8e4dc; color: #0c0b09;">DESCARGAR CV ↓</a>
+      <a href="#proyectos" style="display: inline-block; padding: 13px 26px; border: 1px solid rgba(232,228,220,0.3); font-weight: 500; font-size: 14px; letter-spacing: 0.08em;" style-hover="border-color: #d4a24e;">VER PROYECTOS</a>
+    </div>
+  </header>
+
+  <section id="proyectos" style="padding: 72px 48px;" data-screen-label="Proyectos">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
+      <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">PROYECTOS SELECCIONADOS</h2>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">2022 — 2026</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax({{ cardMin }}px, 1fr)); gap: 28px 24px;">
+      <sc-for list="{{ projects }}" as="p" hint-placeholder-count="9">
+        <div onClick="{{ p.onOpen }}" style="cursor: pointer;">
+          <figure style="margin: 0;" style-hover="transform: translateY(-4px)">
+            <div style="position: relative; aspect-ratio: 2/3; overflow: hidden; background: #17150f; box-shadow: 0 12px 32px rgba(0,0,0,0.5);">
+              <sc-if value="{{ p.ready }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ p.title }}" style="width: 100%; height: 100%; background-image: url('{{ p.img }}'); background-size: cover; background-position: {{ p.pos }};"></div>
+              </sc-if>
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(12,11,9,0.72); opacity: 0; transition: opacity 0.2s;" style-hover="opacity: 1;">
+                <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; color: #d4a24e; border: 1px solid #d4a24e; padding: 10px 18px;">VER TRAILER ↗</span>
+              </div>
+            </div>
+            <figcaption style="margin-top: 12px;">
+              <div style="font-size: 16px; font-weight: 700; letter-spacing: 0.02em; color: #e8e4dc;">{{ p.title }}</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.1em; color: #d4a24e; margin-top: 4px;">{{ p.role }}</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: rgba(232,228,220,0.45); margin-top: 3px;">{{ p.meta }}</div>
+            </figcaption>
+          </figure>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px; margin-top: 48px;">
+      <div style="flex: 1; height: 1px; background: rgba(232,228,220,0.15);"></div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.22em; color: rgba(232,228,220,0.5);">ENTRE OTROS — <a href="#creditos" style="color: #d4a24e;">VER CRÉDITOS COMPLETOS</a></span>
+      <div style="flex: 1; height: 1px; background: rgba(232,228,220,0.15);"></div>
+    </div>
+  </section>
+
+  <section id="archivo" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="En rodaje">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
+      <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">EN RODAJE — MATERIAL DE ARCHIVO</h2>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">DETRÁS DE CÁMARA</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; margin-bottom: 20px; align-items: start;">
+      <sc-for list="{{ archiveVideos }}" as="v" hint-placeholder-count="3">
+        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
+          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
+            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+          </sc-if>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
+            <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 17px; backdrop-filter: blur(3px);">▶</div>
+          </div>
+          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="columns: 3 300px; column-gap: 20px;">
+      <sc-for list="{{ archivePhotos }}" as="ph" hint-placeholder-count="9">
+        <div onClick="{{ ph.onOpen }}" style="margin: 0 0 20px; cursor: zoom-in; break-inside: avoid; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+          <sc-if value="{{ ph.ready }}" hint-placeholder-val="{{ false }}">
+            <div role="img" aria-label="Material de rodaje" style="width: 100%; aspect-ratio: {{ ph.r }}; background-image: url('{{ ph.src }}'); background-size: cover; background-position: center;"></div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="digital" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contenido digital">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
+      <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTENIDO DIGITAL</h2>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
+    </div>
+
+    <div style="display: flex; align-items: baseline; gap: 20px; margin-bottom: 24px; flex-wrap: wrap;">
+      <h3 style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Campaña — Nombralo. Es Odio.</h3>
+      <a href="https://nombraloesodio.org.ar" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d4a24e; border-bottom: 1px solid #d4a24e; padding-bottom: 2px;">NOMBRALOESODIO.ORG.AR ↗</a>
+    </div>
+    <p style="margin: 0 0 28px; max-width: 640px; font-size: 15.5px; line-height: 1.6; color: rgba(232,228,220,0.65);">Coordinación de la campaña contra los discursos de odio: articulación con embajadas, legisladores y organismos de DDHH, y desarrollo de la estrategia audiovisual completa — identidad visual, contenido multimedia y piezas de difusión.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+      <sc-for list="{{ campaignPieces }}" as="cp" hint-placeholder-count="5">
+        <div onClick="{{ cp.onOpen }}" style="cursor: zoom-in; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+          <sc-if value="{{ cp.ready }}" hint-placeholder-val="{{ false }}">
+            <div role="img" aria-label="Pieza de campaña" style="width: 100%; aspect-ratio: {{ cp.r }}; background-image: url('{{ cp.src }}'); background-size: cover; background-position: top center;"></div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+      <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
+        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
+          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
+            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+          </sc-if>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
+          </div>
+          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <h3 style="margin: 0 0 24px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Redes</h3>
+    <div style="columns: 4 210px; column-gap: 20px;">
+      <sc-for list="{{ socialVideos }}" as="v" hint-placeholder-count="9">
+        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4); break-inside: avoid; margin: 0 0 20px;" style-hover="transform: translateY(-3px)">
+          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
+            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+          </sc-if>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
+          </div>
+          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="creditos" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Créditos">
+    <h2 style="margin: 0 0 48px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CRÉDITOS COMPLETOS</h2>
+    <div style="display: flex; flex-direction: column; gap: 48px;">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+        <div style="display: grid; grid-template-columns: minmax(200px, 1fr) 3fr; gap: 24px 48px;">
+          <h3 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 0.01em;">{{ g.name }}</h3>
+          <div style="display: flex; flex-direction: column;">
+            <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: 2fr 1fr 2fr 60px; gap: 16px; padding: 13px 0; border-bottom: 1px solid rgba(232,228,220,0.1); align-items: baseline;">
+                <div style="font-size: 15.5px; font-weight: 600;"><span onClick="{{ c.onOpen }}" style="cursor: pointer;">{{ c.t }}</span> <span onClick="{{ c.onOpen }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d4a24e; cursor: pointer;">{{ c.arrow }}</span></div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.5);">{{ c.f }}</div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.65);">{{ c.p }}</div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #d4a24e; text-align: right;">{{ c.y }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="bio" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px;" data-screen-label="Bio">
+    <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
+    <div style="max-width: 680px;">
+      <p style="margin: 0; font-size: 23px; line-height: 1.5; font-weight: 300;">Soy organizador antes que otra cosa: la persona que hace que las cosas pasen. Técnico audiovisual con cinco años coordinando equipos, tiempos y logística en producciones de todas las escalas.</p>
+      <p style="margin: 24px 0 0; font-size: 16px; line-height: 1.65; color: rgba(232,228,220,0.65);">Coordinación de operaciones diarias de set con más de 500 extras y 80 de crew en películas, series y publicidades. Diseño de planes de rodaje, preproducción, presupuestos de extras y gestión administrativa en rodaje. Además, coordino proyectos, campañas y más de 40 eventos institucionales en la ONG Zona Igualdad desde 2020.</p>
+      <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 14px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #d4a24e; margin-bottom: 6px;">FORMACIÓN</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Técnico en Dirección Cinematográfica — Universidad del Cine (FUC)<br>Lic. en Comunicación Audiovisual — UNSAM</div>
+        </div>
+        <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 14px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #d4a24e; margin-bottom: 6px;">HERRAMIENTAS</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Movie Magic Scheduling · Premiere Pro · After Effects · Photoshop · Canva · Keynote</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto" style="padding: 72px 48px 56px; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contacto">
+    <h2 style="margin: 0 0 24px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTACTO</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: baseline;">
+      <a href="mailto:cookematias@gmail.com" style="font-size: clamp(26px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.01em;">cookematias@gmail.com</a>
+      <div style="display: flex; gap: 24px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.1em; flex-wrap: wrap;">
+        <a href="tel:+541154118946">+54 11 5411-8946</a>
+        <a href="https://www.instagram.com/maticooke" target="_blank" rel="noopener">INSTAGRAM</a>
+        <a href="https://www.linkedin.com/in/matias-cooke/" target="_blank" rel="noopener">LINKEDIN</a>
+        <a href="uploads/cv_creditos-1785518109679-xe2a.docx" download="CV Matias Cooke 2026.docx">CV ↓</a>
+      </div>
+    </div>
+    <div style="margin-top: 48px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.35);">© 2026 Matías Cooke — CABA, Buenos Aires, Argentina</div>
+  </footer>
+
+  <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeVideo }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px;">
+      <div style="max-width: 90%; max-height: 90%;">{{ videoEl }}</div>
+      <button onClick="{{ closeVideo }}" style="position: absolute; top: 24px; right: 32px; background: none; border: 1px solid rgba(232,228,220,0.4); color: #e8e4dc; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; padding: 10px 18px; cursor: pointer;" style-hover="border-color: #d4a24e; color: #d4a24e;">CERRAR ✕</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ photoOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePhoto }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out;">
+      <div role="img" aria-label="Material de rodaje" style="width: 100%; height: 100%; background-image: url('{{ photoSrc }}'); background-size: contain; background-position: center; background-repeat: no-repeat;"></div>
+      <button onClick="{{ closePhoto }}" style="position: absolute; top: 24px; right: 32px; background: none; border: 1px solid rgba(232,228,220,0.4); color: #e8e4dc; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; padding: 10px 18px; cursor: pointer;" style-hover="border-color: #d4a24e; color: #d4a24e;">CERRAR ✕</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ trailerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeTrailer }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.92); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 48px;">
+      <div style="width: min(1100px, 100%); aspect-ratio: 16/9; background: #000; box-shadow: 0 24px 80px rgba(0,0,0,0.8);">
+        <iframe src="{{ embedUrl }}" style="width: 100%; height: 100%; border: 0; display: block;" allow="autoplay; encrypted-media; fullscreen" allowfullscreen="true" title="Trailer"></iframe>
+      </div>
+      <button onClick="{{ closeTrailer }}" style="position: absolute; top: 24px; right: 32px; background: none; border: 1px solid rgba(232,228,220,0.4); color: #e8e4dc; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.12em; padding: 10px 18px; cursor: pointer;" style-hover="border-color: #d4a24e; color: #d4a24e;">CERRAR ✕</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
+class Component extends DCLogic {
+  state = { trailerId: null, photoSrc: null, videoSrc: null };
+  open(url) {
+    const m = (url || "").match(/[?&]v=([\w-]+)/);
+    if (m) this.setState({ trailerId: m[1] });
+  }
+  renderVals() {
+    const dense = (this.props.grilla ?? "amplia") === "compacta";
+    const projects = [
+      { img: "uploads/Gatillero.jpg", title: "Gatillero", role: "1° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · VASO / HBO · 2023", trailer: "https://www.youtube.com/watch?v=y-quQUa-ysY", pos: "center" },
+      { img: "uploads/La pistolera.jpg", title: "La Pistolera", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · REI CINE / ZEPPELIN · 2025", trailer: "https://www.youtube.com/watch?v=VzqBZZEvkYk", pos: "center" },
+      { img: "uploads/Casaca.jpg", title: "La Casaca de Dios", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · FRONTERA CINE / PRIME VIDEO · 2025", trailer: "https://www.youtube.com/watch?v=caurr7_eECk", pos: "center" },
+      { img: "uploads/Sin salida.jpg", title: "Sin Salida", role: "1° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · ALEPH MEDIA · 2023", trailer: "https://www.youtube.com/watch?v=KZJz5lMXXbU", pos: "center" },
+      { img: "uploads/El rapto.jpg", title: "El Rapto", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · REI CINE / PARAMOUNT+ · 2022", trailer: "https://www.youtube.com/watch?v=nEv0CcVOXNk", pos: "center" },
+      { img: "uploads/Los protectores 2.png", title: "Los Protectores 2", role: "2° AYUDANTE DE DIRECCIÓN", meta: "SERIE · POLKA / STAR+ · 2022", trailer: "https://www.youtube.com/watch?v=A4n_9iWMIPE", pos: "center" },
+      { img: "uploads/Moria.jpg", title: "Moria", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · ABOUT / NETFLIX · 2025", trailer: "https://www.youtube.com/watch?v=u_nfOOsUQeY", pos: "center" },
+      { img: "uploads/Division palermo 2-3a9ef835.jpg", title: "División Palermo", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2024", trailer: "https://www.youtube.com/watch?v=ZXGKdLWat7Y", pos: "center" },
+      { img: "uploads/DISNEY-MAZEL-TOV-763x1024.jpg", title: "Mazel Tov", role: "REFUERZO DE DIRECCIÓN", meta: "PELÍCULA · PRELUDIO / DISNEY+ · 2024", trailer: "https://www.youtube.com/watch?v=RcsomZ8_7Uk", pos: "center" },
+      { img: "uploads/Fin del amor 2.jpg", title: "El Fin del Amor 2", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / PRIME VIDEO · 2023", trailer: "https://www.youtube.com/watch?v=-QtvxqZtANQ", pos: "center" },
+      { img: "uploads/Cris miro.jpg", title: "Cris Miró (Ella)", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · HEMBRA / FLOW · 2023", trailer: "https://www.youtube.com/watch?v=zvz9MS4oP_Q", pos: "72% center" },
+      { img: "uploads/Eternauta.jpg", title: "El Eternauta", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2023", trailer: "https://www.youtube.com/watch?v=ykLTd5aTa88", pos: "center" },
+      { img: "uploads/Dias de gallo.jpg", title: "Días de Gallos 2", role: "2° AYUDANTE DE DIRECCIÓN", meta: "SERIE · ZEPPELIN / HBO · 2022", trailer: "https://www.youtube.com/watch?v=zvuIqlcR7Tk", pos: "center" },
+    ];
+    const groups = [
+      { name: "1° Ayudante de Dirección", items: [
+        { t: "Gatillero", f: "Película", p: "Vaso / HBO", y: "2023", tr: "https://www.youtube.com/watch?v=y-quQUa-ysY" },
+        { t: "Sin Salida", f: "Película", p: "Aleph Media", y: "2023", tr: "https://www.youtube.com/watch?v=KZJz5lMXXbU" },
+        { t: "Nunca Digas Nunca", f: "Película", p: "Fam Contenidos", y: "2023" },
+      ]},
+      { name: "2° Ayudante de Dirección", items: [
+        { t: "El Enemigo Interno (Villaflor)", f: "Película", p: "La Unión de los Ríos / Netflix", y: "2026" },
+        { t: "La Pistolera", f: "Película", p: "Rei Cine / Zeppelin", y: "2025", tr: "https://www.youtube.com/watch?v=VzqBZZEvkYk" },
+        { t: "La Casaca de Dios", f: "Película", p: "Frontera Cine / Prime Video", y: "2025", tr: "https://www.youtube.com/watch?v=caurr7_eECk" },
+        { t: "Chaira", f: "Serie", p: "Polka / Star+", y: "2022–23" },
+        { t: "El Rapto", f: "Película", p: "REI Cine / Paramount+", y: "2022", tr: "https://www.youtube.com/watch?v=nEv0CcVOXNk" },
+        { t: "Días de Gallos 2", f: "Serie", p: "Zeppelin / HBO", y: "2022", tr: "https://www.youtube.com/watch?v=zvuIqlcR7Tk" },
+        { t: "Los Protectores 2", f: "Serie", p: "Polka / Star+", y: "2022", tr: "https://www.youtube.com/watch?v=A4n_9iWMIPE" },
+      ]},
+      { name: "Refuerzo de Dirección", items: [
+        { t: "Moria", f: "Serie", p: "About", y: "2025", tr: "https://www.youtube.com/watch?v=u_nfOOsUQeY" },
+        { t: "División Palermo", f: "Serie", p: "K&S / Netflix", y: "2024", tr: "https://www.youtube.com/watch?v=ZXGKdLWat7Y" },
+        { t: "Mazel Tov", f: "Película", p: "Preludio / Disney+", y: "2024", tr: "https://www.youtube.com/watch?v=RcsomZ8_7Uk" },
+        { t: "El Eternauta", f: "Serie", p: "K&S / Netflix", y: "2023", tr: "https://www.youtube.com/watch?v=ykLTd5aTa88" },
+        { t: "Cris Miró (Ella)", f: "Serie", p: "Hembra / Flow", y: "2023", tr: "https://www.youtube.com/watch?v=zvz9MS4oP_Q" },
+        { t: "El Fin del Amor 2", f: "Serie", p: "K&S / Prime Video", y: "2023", tr: "https://www.youtube.com/watch?v=-QtvxqZtANQ" },
+        { t: "Tuve el Corazón", f: "Película", p: "Charlo Films", y: "2023" },
+      ]},
+      { name: "Publicidad", items: [
+        { t: "Cabify", f: "Publicidad", p: "Casta Diva · 2° AD", y: "2024" },
+        { t: "Telecentro", f: "Publicidad", p: "Casta Diva · 2° AD", y: "2024" },
+        { t: "Oreo — Volvamos al Juego", f: "Publicidad", p: "Landia · 3° Dirección", y: "2024" },
+        { t: "Movistar con Todo", f: "Publicidad", p: "Landia · 3° Dirección", y: "2023" },
+        { t: "YPF Principiantes", f: "Publicidad", p: "Casta Diva · 3° Dirección", y: "2023" },
+      ]},
+      { name: "Coordinación de Proyectos", items: [
+        { t: "Zona Igualdad (ONG)", f: "Campañas · Eventos", p: "40+ eventos institucionales", y: "2020—hoy" },
+      ]},
+    ];
+    projects.forEach(p => { p.ready = true; p.onOpen = () => this.open(p.trailer); });
+    groups.forEach(g => g.items.forEach(c => {
+      c.arrow = c.tr ? "TRAILER ↗" : "";
+      c.onOpen = c.tr ? () => this.open(c.tr) : undefined;
+    }));
+    return {
+      archivePhotos: [
+        ["uploads/20260429_080100.jpg", "2252/4000"],
+        ["uploads/IMG-20260526-WA0041.jpg", "1066/600"],
+        ["uploads/20251121_182857.jpg", "2252/4000"],
+        ["uploads/20260430_144942.jpg", "2252/4000"],
+        ["uploads/La casaca de dios-1aacb6ab.jpg", "998/625"],
+        ["uploads/IMG-20250412-WA0058.jpg", "3024/4032"],
+        ["uploads/IMG-20250328-WA0077.jpg", "3024/4032"],
+        ["uploads/20260511_152828-3f5b39cb.jpg", "4000/2252"],
+        ["uploads/IMG-20250408-WA0020.jpg", "1200/1600"],
+        ["uploads/20250409_170024.jpg", "1868/4000"],
+        ["uploads/20250506_143318.jpg", "2252/4000"],
+        ["uploads/20250405_115030.jpg", "1868/4000"],
+        ["uploads/20250329_195011.jpg", "1868/4000"],
+        ["uploads/20250513_161718.jpg", "4000/2252"],
+        ["uploads/20250516_200834.jpg", "4000/2252"],
+        ["uploads/20250329_125359.jpg", "1868/4000"],
+        ["uploads/20250318_183406.jpg", "1868/4000"],
+        ["uploads/20250505_153733.jpg", "2252/4000"],
+        ["uploads/20230904_125257.jpg", "3000/4000"],
+        ["uploads/20230829_040056.jpg", "4000/3000"],
+        ["uploads/20230616_233315.jpg", "3000/4000"],
+        ["uploads/20230612_154354.jpg", "3000/4000"],
+        ["uploads/20230609_211323.jpg", "3000/4000"],
+        ["uploads/20231207_214141.jpg", "3000/4000"],
+        ["uploads/20230909_165736.jpg", "3000/4000"],
+        ["uploads/20230908_152710.jpg", "4000/2252"],
+      ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) })),
+      archiveVideos: [
+        ["uploads/video-set-01.mp4", "posters/video-set-01.png", "720/1280", "VIDEO DE SET — 01"],
+        ["uploads/20251114_040911.mp4", "posters/20251114_040911.png", "1080/1920", "VIDEO DE SET — 02"],
+        ["uploads/20230919_064618.mp4", "posters/20230919_064618.png", "1080/1920", "VIDEO DE SET — 03"],
+      ].map(([src, poster, r, label]) => ({ poster, r, label, ready: true, onOpen: () => this.setState({ videoSrc: src }) })),
+      campaignPieces: [
+        ["uploads/0.png", "1080/1350"],
+        ["uploads/0-dc7d4175.png", "1080/1350"],
+        ["uploads/1.png", "1080/1350"],
+        ["uploads/1-895229ba.png", "1080/1920"],
+        ["uploads/1-34e39be1.png", "1080/1920"],
+      ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) })),
+      campaignSpots: [
+        ["uploads/_2519999796.mp4", "posters/_2519999796.png", "720/1280"],
+        ["uploads/_2520061023.mp4", "posters/_2520061023.png", "720/1280"],
+        ["uploads/_2520133705.mp4", "posters/_2520133705.png", "720/1280"],
+        ["uploads/_2520187089.mp4", "posters/_2520187089.png", "720/1280"],
+      ].map(([src, poster, r], i) => ({ poster, r, ready: true, label: `SPOT — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ videoSrc: src }) })),
+      socialVideos: [
+        ["uploads/redes-01.mp4", "posters/redes-01.png", "1920/1080"],
+        ["uploads/02.mp4", "posters/redes-02.png", "1280/720"],
+        ["uploads/03.mp4", "posters/redes-03.png", "720/1280"],
+        ["uploads/03b.mp4", "posters/redes-03b.png", "720/1282"],
+        ["uploads/04.mp4", "posters/redes-04.png", "1920/1080"],
+        ["uploads/04b.mp4", "posters/redes-04b.png", "1080/1920"],
+        ["uploads/4.mp4", "posters/redes-4.png", "1080/1920"],
+        ["uploads/7.mp4", "posters/redes-7.png", "720/1280"],
+        ["uploads/8.mp4", "posters/redes-8.png", "720/720"],
+      ].map(([src, poster, r], i) => ({ poster, r, ready: true, label: `REDES — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ videoSrc: src }) })),
+      videoOpen: !!this.state.videoSrc,
+      videoEl: this.state.videoSrc ? React.createElement("video", {
+        src: this.state.videoSrc, controls: true, autoPlay: true,
+        style: { maxWidth: "100%", maxHeight: "82vh", display: "block", boxShadow: "0 24px 80px rgba(0,0,0,0.8)" },
+        onClick: e => e.stopPropagation(),
+      }) : null,
+      closeVideo: () => this.setState({ videoSrc: null }),
+      photoOpen: !!this.state.photoSrc,
+      photoSrc: this.state.photoSrc,
+      closePhoto: () => this.setState({ photoSrc: null }),
+      projects, groups, cardMin: dense ? 200 : 250,
+      trailerOpen: !!this.state.trailerId,
+      embedUrl: this.state.trailerId ? `https://www.youtube-nocookie.com/embed/${this.state.trailerId}?autoplay=1` : "",
+      closeTrailer: () => this.setState({ trailerId: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>
