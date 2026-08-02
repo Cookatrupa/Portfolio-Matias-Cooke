@@ -150,7 +150,7 @@
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
       </div>
       <h3 style="margin: 0 0 28px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Redes</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 20px;">
+      <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 20px;">
         <sc-for list="{{ socialVideos }}" as="v" hint-placeholder-count="9">
           <div>
             <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
@@ -177,7 +177,7 @@
         <a href="https://nombraloesodio.org.ar" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d6201b; border-bottom: 1px solid #d6201b; padding-bottom: 2px;" style-hover="color: #16130f; border-color: #16130f;">NOMBRALOESODIO.ORG.AR ↗</a>
       </div>
       <p style="margin: 0 0 36px; max-width: 640px; font-size: 16px; line-height: 1.6; color: rgba(22,19,15,0.75);">Coordinación de la campaña contra los discursos de odio: articulación con embajadas, legisladores y organismos de DDHH, y desarrollo de la estrategia audiovisual completa — identidad visual, contenido multimedia y piezas de difusión.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+      <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
         <sc-for list="{{ campaignPieces }}" as="cp" hint-placeholder-count="5">
           <div onClick="{{ cp.onOpen }}" style="cursor: zoom-in; background: #fff; box-shadow: 0 10px 28px rgba(22,19,15,0.25);" style-hover="transform: translateY(-3px)">
             <sc-if value="{{ cp.ready }}" hint-placeholder-val="{{ false }}">
@@ -190,7 +190,7 @@
         <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d6201b; font-weight: 500;">SPOTS DE LA CAMPAÑA</h4>
         <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(22,19,15,0.55);">4 piezas audiovisuales financiadas para difusión</span>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+      <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
         <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
           <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #16130f; box-shadow: 0 10px 28px rgba(22,19,15,0.3);" style-hover="transform: translateY(-3px)">
             <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
@@ -209,7 +209,7 @@
         <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(22,19,15,0.55);">EMBAJADA DE CANADÁ · CONGRESO DE LA NACIÓN</span>
       </div>
       <p style="margin: 0 0 24px; max-width: 640px; font-size: 15px; line-height: 1.6; color: rgba(22,19,15,0.75);">Presentación oficial de la campaña en la Embajada de Canadá en Argentina y acciones de incidencia legislativa junto a legisladores y organizaciones de derechos humanos.</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+      <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
         <sc-for list="{{ launchPhotos }}" as="lp" hint-placeholder-count="6">
           <div onClick="{{ lp.onOpen }}" style="cursor: zoom-in; background: #fff; aspect-ratio: 4/3; overflow: hidden; box-shadow: 0 10px 28px rgba(22,19,15,0.25);" style-hover="transform: translateY(-3px)">
             <sc-if value="{{ lp.ready }}" hint-placeholder-val="{{ false }}">
@@ -281,6 +281,19 @@
     <div style="margin-top: 48px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.35);">© 2026 Matías Cooke — CABA, Buenos Aires, Argentina</div>
   </footer>
 
+  <sc-if value="{{ showFab }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; right: 26px; bottom: 26px; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; gap: 16px;">
+      <sc-if value="{{ fabOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background: rgba(12,11,9,0.97); border: 1px solid rgba(212,162,78,0.55); display: flex; flex-direction: column; box-shadow: 0 18px 60px rgba(0,0,0,0.7); min-width: 320px;">
+          <sc-for list="{{ navLinks }}" as="n" hint-placeholder-count="6">
+            <a href="{{ n.h }}" onClick="{{ closeFab }}" style="padding: 20px 32px; font-size: 27px; font-weight: 700; letter-spacing: 0.08em; border-bottom: 1px solid rgba(232,228,220,0.1);">{{ n.l }}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+      <button onClick="{{ toggleFab }}" style="width: 88px; height: 88px; border-radius: 50%; background: #d4a24e; color: #0c0b09; border: none; font-size: 34px; cursor: pointer; box-shadow: 0 12px 40px rgba(0,0,0,0.65); font-weight: 800;">{{ fabIcon }}</button>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ videoOpen }}" hint-placeholder-val="{{ false }}">
     <div data-modal="1" onClick="{{ closeVideo }}" style="position: fixed; inset: 0; background: rgba(12,11,9,0.94); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 40px;">
       <div style="max-width: 90%; max-height: 90%;">{{ videoEl }}</div>
@@ -307,8 +320,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
 class Component extends DCLogic {
-  state = { trailerId: null, photoSrc: null, videoSrc: null, showAllPhotos: false };
+  state = { trailerId: null, photoSrc: null, videoSrc: null, showAllPhotos: false, fabOpen: false, isTouch: false };
   componentDidMount() {
+    if (window.matchMedia) this.setState({ isTouch: window.matchMedia("(pointer: coarse)").matches });
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setTimeout(() => {
       const io = new IntersectionObserver(es => es.forEach(e => {
@@ -319,6 +333,23 @@ class Component extends DCLogic {
         el.style.opacity = "0"; el.style.transform = "translateY(32px)";
         el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
         io.observe(el);
+      });
+      const io2 = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target; io2.unobserve(el);
+        setTimeout(() => {
+          el.style.opacity = "1"; el.style.transform = "none";
+          setTimeout(() => { el.style.transition = "transform 0.25s ease"; }, 750);
+        }, +el.dataset.staggerDelay || 0);
+      }), { threshold: 0.1 });
+      document.querySelectorAll("[data-stagger]").forEach(grid => {
+        Array.from(grid.children).forEach((el, i) => {
+          if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+          el.dataset.staggerDelay = (i % 6) * 80;
+          el.style.opacity = "0"; el.style.transform = "translateY(30px) scale(0.96)";
+          el.style.transition = "opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)";
+          io2.observe(el);
+        });
       });
     }, 500);
   }
@@ -340,7 +371,7 @@ class Component extends DCLogic {
       { img: "uploads/DISNEY-MAZEL-TOV-763x1024.jpg", title: "Mazel Tov", role: "REFUERZO DE DIRECCIÓN", meta: "PELÍCULA · PRELUDIO / DISNEY+ · 2024", trailer: "https://www.youtube.com/watch?v=RcsomZ8_7Uk", pos: "center" },
       { img: "uploads/Fin del amor 2.jpg", title: "El Fin del Amor 2", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / PRIME VIDEO · 2023", trailer: "https://www.youtube.com/watch?v=-QtvxqZtANQ", pos: "center" },
       { img: "uploads/Cris miro.jpg", title: "Cris Miró (Ella)", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · HEMBRA / FLOW · 2023", trailer: "https://www.youtube.com/watch?v=zvz9MS4oP_Q", pos: "72% center" },
-      { img: "uploads/Eternauta.jpg", title: "El Eternauta", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2023", trailer: "https://www.youtube.com/watch?v=ykLTd5aTa88", pos: "center" },
+      { img: "uploads/Eternsuys.jpg", title: "El Eternauta", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2023", trailer: "https://www.youtube.com/watch?v=ykLTd5aTa88", pos: "center" },
       { img: "uploads/Dias de gallo.jpg", title: "Días de Gallos 2", role: "2° AYUDANTE DE DIRECCIÓN", meta: "SERIE · ZEPPELIN / HBO · 2022", trailer: "https://www.youtube.com/watch?v=zvuIqlcR7Tk", pos: "center" },
     ];
     const groups = [
@@ -453,6 +484,16 @@ class Component extends DCLogic {
         ["uploads/7.mp4", "posters/redes-7.png", "720/1280", "Alonorma", "PIEZA SOBRE ASEXUALIDAD"],
         ["uploads/8.mp4", "posters/redes-8.png", "720/720", "Todas las Banderas", "PLACA GRÁFICA"],
       ].map(([src, poster, r, t, tag]) => ({ poster, r, t, tag, ready: true, onOpen: () => this.setState({ videoSrc: src }) })),
+      showFab: this.state.isTouch,
+      fabOpen: this.state.fabOpen,
+      fabIcon: this.state.fabOpen ? "✕" : "☰",
+      toggleFab: () => this.setState(s => ({ fabOpen: !s.fabOpen })),
+      closeFab: () => this.setState({ fabOpen: false }),
+      navLinks: [
+        { h: "#proyectos", l: "PROYECTOS" }, { h: "#creditos", l: "CRÉDITOS" },
+        { h: "#digital", l: "DIGITAL" }, { h: "#archivo", l: "EN RODAJE" },
+        { h: "#bio", l: "BIO" }, { h: "#contacto", l: "CONTACTO" },
+      ],
       videoOpen: !!this.state.videoSrc,
       videoEl: this.state.videoSrc ? React.createElement("video", {
         src: this.state.videoSrc, controls: true, autoPlay: true,
