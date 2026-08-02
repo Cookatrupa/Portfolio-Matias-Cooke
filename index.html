@@ -17,6 +17,8 @@
   a { color: #e8e4dc; text-decoration: none; }
   a:hover { color: #d4a24e; }
   ::selection { background: #d4a24e; color: #0c0b09; }
+  html { scroll-behavior: smooth; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
   @media (max-width: 720px) {
     nav { flex-wrap: wrap; gap: 14px 20px; padding: 16px 20px !important; }
     header, section, footer { padding-left: 20px !important; padding-right: 20px !important; }
@@ -35,8 +37,8 @@
     <div style="display: flex; gap: 28px; font-size: 13.5px; letter-spacing: 0.08em; font-weight: 500;">
       <a href="#proyectos">PROYECTOS</a>
       <a href="#creditos">CRÉDITOS</a>
-      <a href="#archivo">EN RODAJE</a>
       <a href="#digital">DIGITAL</a>
+      <a href="#archivo">EN RODAJE</a>
       <a href="#bio">BIO</a>
       <a href="#contacto">CONTACTO</a>
     </div>
@@ -52,7 +54,14 @@
     </div>
   </header>
 
-  <section id="proyectos" style="padding: 72px 48px; order: 1;" data-screen-label="Proyectos">
+  <div style="overflow: hidden; border-bottom: 1px solid rgba(232,228,220,0.12); padding: 16px 0; white-space: nowrap;" aria-hidden="true">
+    <div style="display: inline-flex; width: max-content; animation: marquee 30s linear infinite; will-change: transform;">
+      <span style="display: inline-flex; gap: 56px; padding-right: 56px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: rgba(212,162,78,0.75);"><span>5 AÑOS DE RODAJE</span><span>·</span><span>20+ PRODUCCIONES</span><span>·</span><span>500+ EXTRAS COORDINADOS</span><span>·</span><span>EQUIPOS DE 80 DE CREW</span><span>·</span><span>40+ EVENTOS INSTITUCIONALES</span><span>·</span><span>CINE / SERIES / PUBLICIDAD</span><span>·</span></span>
+      <span style="display: inline-flex; gap: 56px; padding-right: 56px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: rgba(212,162,78,0.75);"><span>5 AÑOS DE RODAJE</span><span>·</span><span>20+ PRODUCCIONES</span><span>·</span><span>500+ EXTRAS COORDINADOS</span><span>·</span><span>EQUIPOS DE 80 DE CREW</span><span>·</span><span>40+ EVENTOS INSTITUCIONALES</span><span>·</span><span>CINE / SERIES / PUBLICIDAD</span><span>·</span></span>
+    </div>
+  </div>
+
+  <section id="proyectos" data-reveal="1" style="padding: 72px 48px; order: 1;" data-screen-label="Proyectos">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">PROYECTOS SELECCIONADOS</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">2022 — 2026</div>
@@ -93,93 +102,133 @@
     </div>
   </section>
 
-  <section id="archivo" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 3;" data-screen-label="En rodaje">
-    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
+  <section id="archivo" data-reveal="1" style="padding: 64px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 4;" data-screen-label="En rodaje">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">EN RODAJE — MATERIAL DE ARCHIVO</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">DETRÁS DE CÁMARA</div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; margin-bottom: 20px; align-items: start;">
-      <sc-for list="{{ archiveVideos }}" as="v" hint-placeholder-count="3">
-        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
-          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
-            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
-          </sc-if>
-          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
-            <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 17px; backdrop-filter: blur(3px);">▶</div>
+    <sc-if value="{{ photosCollapsed }}" hint-placeholder-val="{{ true }}">
+      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;">
+        <sc-for list="{{ stripPhotos }}" as="ph" hint-placeholder-count="6">
+          <div onClick="{{ ph.onOpen }}" style="cursor: zoom-in; background: #17150f; aspect-ratio: 4/5; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
+            <sc-if value="{{ ph.ready }}" hint-placeholder-val="{{ false }}">
+              <div role="img" aria-label="Material de rodaje" style="width: 100%; height: 100%; background-image: url('{{ ph.src }}'); background-size: cover; background-position: center;"></div>
+            </sc-if>
           </div>
-          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
-        </div>
-      </sc-for>
-    </div>
-    <div style="columns: 3 300px; column-gap: 20px;">
-      <sc-for list="{{ visiblePhotos }}" as="ph" hint-placeholder-count="6">
-        <div onClick="{{ ph.onOpen }}" style="margin: 0 0 20px; cursor: zoom-in; break-inside: avoid; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
-          <sc-if value="{{ ph.ready }}" hint-placeholder-val="{{ false }}">
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ photosExpanded }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; margin-bottom: 20px; align-items: start;">
+        <sc-for list="{{ archiveVideos }}" as="v" hint-placeholder-count="3">
+          <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
+            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
+              <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 17px; backdrop-filter: blur(3px);">▶</div>
+            </div>
+            <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="columns: 3 300px; column-gap: 20px;">
+        <sc-for list="{{ visiblePhotos }}" as="ph" hint-placeholder-count="6">
+          <div onClick="{{ ph.onOpen }}" style="margin: 0 0 20px; cursor: zoom-in; break-inside: avoid; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
             <div role="img" aria-label="Material de rodaje" style="width: 100%; aspect-ratio: {{ ph.r }}; background-image: url('{{ ph.src }}'); background-size: cover; background-position: center;"></div>
-          </sc-if>
-        </div>
-      </sc-for>
-    </div>
-    <div style="display: flex; justify-content: center; margin-top: 36px;">
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="display: flex; justify-content: center; margin-top: 32px;">
       <button onClick="{{ togglePhotos }}" style="background: none; border: 1px solid #d4a24e; color: #d4a24e; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; padding: 13px 28px; cursor: pointer;" style-hover="background: #d4a24e; color: #0c0b09;">{{ photosBtnLabel }}</button>
     </div>
   </section>
 
-  <section id="digital" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 4;" data-screen-label="Contenido digital">
-    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
-      <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTENIDO DIGITAL</h2>
-      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
+  <section id="digital" style="order: 3; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contenido digital">
+    <div data-reveal="1" style="padding: 72px 48px 64px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
+        <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTENIDO DIGITAL</h2>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
+      </div>
+      <h3 style="margin: 0 0 28px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Redes</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 20px;">
+        <sc-for list="{{ socialVideos }}" as="v" hint-placeholder-count="9">
+          <div>
+            <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
+              <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
+                <div role="img" aria-label="{{ v.t }}" style="width: 100%; aspect-ratio: 4/5; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+              </sc-if>
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.65), transparent 45%);">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
+              </div>
+            </div>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 3px;">
+              <div style="font-size: 15px; font-weight: 700; letter-spacing: 0.02em;">{{ v.t }}</div>
+              <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #d4a24e;">{{ v.tag }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
     </div>
 
-    <div style="display: flex; align-items: baseline; gap: 20px; margin-bottom: 24px; flex-wrap: wrap;">
-      <h3 style="margin: 0; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Campaña — Nombralo. Es Odio.</h3>
-      <a href="https://nombraloesodio.org.ar" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d4a24e; border-bottom: 1px solid #d4a24e; padding-bottom: 2px;">NOMBRALOESODIO.ORG.AR ↗</a>
-    </div>
-    <p style="margin: 0 0 28px; max-width: 640px; font-size: 15.5px; line-height: 1.6; color: rgba(232,228,220,0.65);">Coordinación de la campaña contra los discursos de odio: articulación con embajadas, legisladores y organismos de DDHH, y desarrollo de la estrategia audiovisual completa — identidad visual, contenido multimedia y piezas de difusión.</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
-      <sc-for list="{{ campaignPieces }}" as="cp" hint-placeholder-count="5">
-        <div onClick="{{ cp.onOpen }}" style="cursor: zoom-in; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
-          <sc-if value="{{ cp.ready }}" hint-placeholder-val="{{ false }}">
-            <div role="img" aria-label="Pieza de campaña" style="width: 100%; aspect-ratio: {{ cp.r }}; background-image: url('{{ cp.src }}'); background-size: cover; background-position: top center;"></div>
-          </sc-if>
-        </div>
-      </sc-for>
-    </div>
-    <div style="display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px;">
-      <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d4a24e; font-weight: 500;">SPOTS DE LA CAMPAÑA</h4>
-      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.5);">4 piezas audiovisuales financiadas para difusión</span>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
-      <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
-        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
-          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
-            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
-          </sc-if>
-          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
+    <div data-reveal="1" style="background: #ece7db; color: #16130f; padding: 72px 48px; border-top: 6px solid #d6201b;" data-screen-label="Campaña Nombralo Es Odio">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.22em; color: #d6201b; margin-bottom: 18px;">CAMPAÑA · ZONA IGUALDAD · CONTRA LOS DISCURSOS DE ODIO</div>
+      <div style="display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 22px;">
+        <h3 style="margin: 0; font-size: clamp(38px, 5.5vw, 72px); line-height: 0.98; font-weight: 900; letter-spacing: -0.02em;">NOMBRALO. <span style="color: #d6201b;">ES ODIO.</span></h3>
+        <a href="https://nombraloesodio.org.ar" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d6201b; border-bottom: 1px solid #d6201b; padding-bottom: 2px;" style-hover="color: #16130f; border-color: #16130f;">NOMBRALOESODIO.ORG.AR ↗</a>
+      </div>
+      <p style="margin: 0 0 36px; max-width: 640px; font-size: 16px; line-height: 1.6; color: rgba(22,19,15,0.75);">Coordinación de la campaña contra los discursos de odio: articulación con embajadas, legisladores y organismos de DDHH, y desarrollo de la estrategia audiovisual completa — identidad visual, contenido multimedia y piezas de difusión.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+        <sc-for list="{{ campaignPieces }}" as="cp" hint-placeholder-count="5">
+          <div onClick="{{ cp.onOpen }}" style="cursor: zoom-in; background: #fff; box-shadow: 0 10px 28px rgba(22,19,15,0.25);" style-hover="transform: translateY(-3px)">
+            <sc-if value="{{ cp.ready }}" hint-placeholder-val="{{ false }}">
+              <div role="img" aria-label="Pieza de campaña" style="width: 100%; aspect-ratio: {{ cp.r }}; background-image: url('{{ cp.src }}'); background-size: cover; background-position: top center;"></div>
+            </sc-if>
           </div>
-          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
-        </div>
-      </sc-for>
-    </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px;">
+        <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d6201b; font-weight: 500;">SPOTS DE LA CAMPAÑA</h4>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(22,19,15,0.55);">4 piezas audiovisuales financiadas para difusión</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
+        <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
+          <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #16130f; box-shadow: 0 10px 28px rgba(22,19,15,0.3);" style-hover="transform: translateY(-3px)">
+            <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
+              <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+            </sc-if>
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.7), transparent 45%);">
+              <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(236,231,219,0.85); border: 1px solid #d6201b; color: #d6201b; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</div>
+            </div>
+            <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(236,231,219,0.9);">{{ v.label }}</span>
+          </div>
+        </sc-for>
+      </div>
 
-    <h3 style="margin: 0 0 24px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Redes</h3>
-    <div style="columns: 4 210px; column-gap: 20px;">
-      <sc-for list="{{ socialVideos }}" as="v" hint-placeholder-count="9">
-        <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4); break-inside: avoid; margin: 0 0 20px;" style-hover="transform: translateY(-3px)">
-          <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
-            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
-          </sc-if>
-          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
+      <div style="display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px;">
+        <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d6201b; font-weight: 500;">LANZAMIENTO E INCIDENCIA LEGISLATIVA</h4>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(22,19,15,0.55);">EMBAJADA DE CANADÁ · CONGRESO DE LA NACIÓN</span>
+      </div>
+      <p style="margin: 0 0 24px; max-width: 640px; font-size: 15px; line-height: 1.6; color: rgba(22,19,15,0.75);">Presentación oficial de la campaña en la Embajada de Canadá en Argentina y acciones de incidencia legislativa junto a legisladores y organizaciones de derechos humanos.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+        <sc-for list="{{ launchPhotos }}" as="lp" hint-placeholder-count="6">
+          <div onClick="{{ lp.onOpen }}" style="cursor: zoom-in; background: #fff; aspect-ratio: 4/3; overflow: hidden; box-shadow: 0 10px 28px rgba(22,19,15,0.25);" style-hover="transform: translateY(-3px)">
+            <sc-if value="{{ lp.ready }}" hint-placeholder-val="{{ false }}">
+              <div role="img" aria-label="Lanzamiento de campaña" style="width: 100%; height: 100%; background-image: url('{{ lp.src }}'); background-size: cover; background-position: center;"></div>
+            </sc-if>
           </div>
-          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(232,228,220,0.85);">{{ v.label }}</span>
+        </sc-for>
+        <div onClick="{{ launchVideoOpen }}" style="position: relative; cursor: pointer; background: #16130f; aspect-ratio: 4/3; overflow: hidden; box-shadow: 0 10px 28px rgba(22,19,15,0.3);" style-hover="transform: translateY(-3px)">
+          <div role="img" aria-label="Video del lanzamiento" style="width: 100%; height: 100%; background-image: url('posters/lanzamiento.png'); background-size: cover; background-position: center top;"></div>
+          <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.7), transparent 45%);">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(236,231,219,0.85); border: 1px solid #d6201b; color: #d6201b; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</div>
+          </div>
+          <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(236,231,219,0.9);">VIDEO — LANZAMIENTO</span>
         </div>
-      </sc-for>
+      </div>
     </div>
   </section>
 
-  <section id="creditos" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 2;" data-screen-label="Créditos">
+  <section id="creditos" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 2;" data-screen-label="Créditos">
     <h2 style="margin: 0 0 48px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CRÉDITOS COMPLETOS</h2>
     <div style="display: flex; flex-direction: column; gap: 48px;">
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
@@ -200,7 +249,7 @@
     </div>
   </section>
 
-  <section id="bio" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 5;" data-screen-label="Bio">
+  <section id="bio" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 5;" data-screen-label="Bio">
     <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
     <div style="max-width: 680px;">
       <p style="margin: 0; font-size: 23px; line-height: 1.5; font-weight: 300;">Soy organizador antes que otra cosa: la persona que hace que las cosas pasen. Técnico audiovisual con cinco años coordinando equipos, tiempos y logística en producciones de todas las escalas.</p>
@@ -259,6 +308,20 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
 class Component extends DCLogic {
   state = { trailerId: null, photoSrc: null, videoSrc: null, showAllPhotos: false };
+  componentDidMount() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setTimeout(() => {
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (e.isIntersecting) { e.target.style.opacity = "1"; e.target.style.transform = "none"; io.unobserve(e.target); }
+      }), { threshold: 0.08 });
+      document.querySelectorAll("[data-reveal]").forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+        el.style.opacity = "0"; el.style.transform = "translateY(32px)";
+        el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        io.observe(el);
+      });
+    }, 500);
+  }
   open(url) {
     const m = (url || "").match(/[?&]v=([\w-]+)/);
     if (m) this.setState({ trailerId: m[1] });
@@ -270,10 +333,10 @@ class Component extends DCLogic {
       { img: "uploads/La pistolera.jpg", title: "La Pistolera", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · REI CINE / ZEPPELIN · 2025", trailer: "https://www.youtube.com/watch?v=VzqBZZEvkYk", pos: "center" },
       { img: "uploads/Casaca.jpg", title: "La Casaca de Dios", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · FRONTERA CINE / PRIME VIDEO · 2025", trailer: "https://www.youtube.com/watch?v=caurr7_eECk", pos: "center" },
       { img: "uploads/Sin salida.jpg", title: "Sin Salida", role: "1° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · ALEPH MEDIA · 2023", trailer: "https://www.youtube.com/watch?v=KZJz5lMXXbU", pos: "center" },
-      { img: "uploads/El rapto.jpg", title: "El Rapto", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · REI CINE / PARAMOUNT+ · 2022", trailer: "https://www.youtube.com/watch?v=nEv0CcVOXNk", pos: "center" },
+      { img: "uploads/El Rapto.jpg", title: "El Rapto", role: "2° AYUDANTE DE DIRECCIÓN", meta: "PELÍCULA · REI CINE / PARAMOUNT+ · 2022", trailer: "https://www.youtube.com/watch?v=nEv0CcVOXNk", pos: "center" },
       { img: "uploads/Los protectores 2.png", title: "Los Protectores 2", role: "2° AYUDANTE DE DIRECCIÓN", meta: "SERIE · POLKA / STAR+ · 2022", trailer: "https://www.youtube.com/watch?v=A4n_9iWMIPE", pos: "center" },
       { img: "uploads/Moria.jpg", title: "Moria", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · ABOUT / NETFLIX · 2025", trailer: "https://www.youtube.com/watch?v=u_nfOOsUQeY", pos: "center" },
-      { img: "uploads/Division palermo 2-3a9ef835.jpg", title: "División Palermo", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2024", trailer: "https://www.youtube.com/watch?v=ZXGKdLWat7Y", pos: "center" },
+      { img: "uploads/Dp.jpg", title: "División Palermo", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / NETFLIX · 2024", trailer: "https://www.youtube.com/watch?v=ZXGKdLWat7Y", pos: "center" },
       { img: "uploads/DISNEY-MAZEL-TOV-763x1024.jpg", title: "Mazel Tov", role: "REFUERZO DE DIRECCIÓN", meta: "PELÍCULA · PRELUDIO / DISNEY+ · 2024", trailer: "https://www.youtube.com/watch?v=RcsomZ8_7Uk", pos: "center" },
       { img: "uploads/Fin del amor 2.jpg", title: "El Fin del Amor 2", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · K&S / PRIME VIDEO · 2023", trailer: "https://www.youtube.com/watch?v=-QtvxqZtANQ", pos: "center" },
       { img: "uploads/Cris miro.jpg", title: "Cris Miró (Ella)", role: "REFUERZO DE DIRECCIÓN", meta: "SERIE · HEMBRA / FLOW · 2023", trailer: "https://www.youtube.com/watch?v=zvz9MS4oP_Q", pos: "72% center" },
@@ -350,9 +413,12 @@ class Component extends DCLogic {
         ["uploads/20230908_152710.jpg", "4000/2252"],
       ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) }));
     return {
-      visiblePhotos: this.state.showAllPhotos ? archivePhotos : archivePhotos.slice(0, 6),
+      photosCollapsed: !this.state.showAllPhotos,
+      photosExpanded: this.state.showAllPhotos,
+      stripPhotos: archivePhotos.slice(0, 6),
+      visiblePhotos: archivePhotos,
       togglePhotos: () => this.setState(s => ({ showAllPhotos: !s.showAllPhotos })),
-      photosBtnLabel: this.state.showAllPhotos ? "VER MENOS ↑" : `VER TODAS LAS FOTOS (${archivePhotos.length}) ↓`,
+      photosBtnLabel: this.state.showAllPhotos ? "VER MENOS ↑" : `VER TODO EL ARCHIVO (${archivePhotos.length} FOTOS + 3 VIDEOS) ↓`,
       archiveVideos: [
         ["uploads/video-set-01.mp4", "posters/video-set-01.png", "720/1280", "VIDEO DE SET — 01"],
         ["uploads/20251114_040911.mp4", "posters/20251114_040911.png", "1080/1920", "VIDEO DE SET — 02"],
@@ -365,6 +431,11 @@ class Component extends DCLogic {
         ["uploads/1-895229ba.png", "1080/1920"],
         ["uploads/1-34e39be1.png", "1080/1920"],
       ].map(([src, r]) => ({ src, r, ready: true, onOpen: () => this.setState({ photoSrc: src }) })),
+      launchPhotos: [
+        "uploads/IMG_6541.JPEG", "uploads/IMG_6550.JPEG", "uploads/IMG_6553.JPEG",
+        "uploads/IMG_6570.JPEG", "uploads/IMG_6587.JPEG", "uploads/IMG-20250926-WA0052.jpg",
+      ].map(src => ({ src, ready: true, onOpen: () => this.setState({ photoSrc: src }) })),
+      launchVideoOpen: () => this.setState({ videoSrc: "uploads/VID-20250925-WA0067.mp4" }),
       campaignSpots: [
         ["uploads/_2519999796.mp4", "posters/_2519999796.png", "720/1280"],
         ["uploads/_2520061023.mp4", "posters/_2520061023.png", "720/1280"],
@@ -372,16 +443,16 @@ class Component extends DCLogic {
         ["uploads/_2520187089.mp4", "posters/_2520187089.png", "720/1280"],
       ].map(([src, poster, r], i) => ({ poster, r, ready: true, label: `SPOT — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ videoSrc: src }) })),
       socialVideos: [
-        ["uploads/redes-01.mp4", "posters/redes-01.png", "1920/1080"],
-        ["uploads/02.mp4", "posters/redes-02.png", "1280/720"],
-        ["uploads/03.mp4", "posters/redes-03.png", "720/1280"],
-        ["uploads/03b.mp4", "posters/redes-03b.png", "720/1282"],
-        ["uploads/04.mp4", "posters/redes-04.png", "1920/1080"],
-        ["uploads/04b.mp4", "posters/redes-04b.png", "1080/1920"],
-        ["uploads/4.mp4", "posters/redes-4.png", "1080/1920"],
-        ["uploads/7.mp4", "posters/redes-7.png", "720/1280"],
-        ["uploads/8.mp4", "posters/redes-8.png", "720/720"],
-      ].map(([src, poster, r], i) => ({ poster, r, ready: true, label: `REDES — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ videoSrc: src }) })),
+        ["uploads/redes-01.mp4", "posters/redes-01.png", "1920/1080", "Romper el Código", "PIEZA DE REDES"],
+        ["uploads/02.mp4", "posters/redes-02.png", "1280/720", "Sanción del Matrimonio Igualitario", "EFEMÉRIDE"],
+        ["uploads/03.mp4", "posters/redes-03.png", "720/1280", "Día contra la Discriminación por Orientación Sexual", "EFEMÉRIDE"],
+        ["uploads/03b.mp4", "posters/redes-03b.png", "720/1282", "Festizona", "PRODUCCIÓN DE EVENTO"],
+        ["uploads/04.mp4", "posters/redes-04.png", "1920/1080", "Compilado Historia LGBT+", "PIEZA DE REDES"],
+        ["uploads/04b.mp4", "posters/redes-04b.png", "1080/1920", "Estreno de Álbum de Familia", "COBERTURA"],
+        ["uploads/4.mp4", "posters/redes-4.png", "1080/1920", "Charla con Gabriela Ivy", "COBERTURA"],
+        ["uploads/7.mp4", "posters/redes-7.png", "720/1280", "Alonorma", "PIEZA SOBRE ASEXUALIDAD"],
+        ["uploads/8.mp4", "posters/redes-8.png", "720/720", "Todas las Banderas", "PLACA GRÁFICA"],
+      ].map(([src, poster, r, t, tag]) => ({ poster, r, t, tag, ready: true, onOpen: () => this.setState({ videoSrc: src }) })),
       videoOpen: !!this.state.videoSrc,
       videoEl: this.state.videoSrc ? React.createElement("video", {
         src: this.state.videoSrc, controls: true, autoPlay: true,
