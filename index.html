@@ -766,7 +766,7 @@ class Component extends DCLogic {
           showRail: !!this.state.area,
           railItems: [["redes", "EDITOR Y CM"], ["dir", "REALIZADOR AUDIOVISUAL"], ["gestion", "PROJECT MANAGER"]].filter(([k]) => k === this.state.area).map(([k, l]) => ({ l, go: () => window.scrollTo({ top: 0, behavior: "smooth" }) })),
           railOthers: [["redes", "EDITOR Y CM"], ["dir", "REALIZADOR AUDIOVISUAL"], ["gestion", "PROJECT MANAGER"]].filter(([k]) => k !== this.state.area).map(([k, l]) => ({ l, w: this.state.railHover ? 38 : 6, op: this.state.railHover ? 1 : 0, go: () => { this.setState({ railHover: false }); if (t === "all") this.goArea(k); else this.pick(k); } })),
-          railPad: this.state.area && !this.state.isTouch ? 52 : 0,
+          railPad: this.state.area ? 52 : 0,
           railIn: () => this.setState({ railHover: true }),
           railOut: () => this.setState({ railHover: false }),
           gestionOrder: t === "gestion" ? 0 : 5,
