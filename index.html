@@ -49,8 +49,8 @@
           </div>
         </sc-if>
       </div>
-      <a href="#bio">BIO</a>
-      <a href="#contacto">CONTACTO</a>
+      <a href="#bio" onClick="{{ goBio }}">BIO</a>
+      <a href="#contacto" onClick="{{ goContacto }}">CONTACTO</a>
     </div>
   </nav>
 
@@ -71,7 +71,7 @@
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; color: rgba(232,228,220,0.5); margin: 56px 0 16px;">ELEGÍ UN PERFIL</div>
     <div style="display: flex; gap: 14px; height: 460px;">
       <div onClick="{{ pickRedes }}" style="position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; cursor: pointer; background: #17150f; border: 1px solid {{ redesBorder }}; opacity: {{ redesOp }}; transition: flex-grow 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.3s, border-color 0.3s;" style-hover="flex-grow: 1.8; opacity: 1;">
-        <div style="position: absolute; inset: 0; background-image: url('posters/redes-01.png'); background-size: cover; background-position: center;"></div>
+        <div style="position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; align-content: start; background: #0c0b09;"><div style="aspect-ratio: 4/5; background-image: url('posters/redes-01.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-10.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-02.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-11.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-03.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-7.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-12.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-04.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-8.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-03b.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-4.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-04b.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-01.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-10.png'); background-size: cover; background-position: center;"></div><div style="aspect-ratio: 4/5; background-image: url('posters/redes-02.png'); background-size: cover; background-position: center;"></div></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.96) 22%, rgba(12,11,9,0.3) 70%, rgba(12,11,9,0.6));"></div>
         <div style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; box-sizing: border-box;">
           <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #d4a24e;"><span>01</span><span>CONTENIDO · CM</span></div>
@@ -110,7 +110,15 @@
         </div>
       </div>
     </div>
+    <sc-if value="{{ showAllBar }}" hint-placeholder-val="{{ true }}">
+      <div onClick="{{ pickAll }}" style="margin-top: 14px; display: flex; justify-content: center; align-items: center; gap: 18px; padding: 26px 28px; cursor: pointer; border: 1px dashed rgba(212,162,78,0.55); background: repeating-linear-gradient(45deg, rgba(232,228,220,0.03) 0 14px, transparent 14px 28px); transition: border-color 0.3s;" style-hover="border-color: #d4a24e;">
+        <span style="font-size: 30px; color: #d4a24e; font-weight: 300; line-height: 1;">+</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d4a24e;">VER TODO EL PORTFOLIO</span>
+      </div>
+    </sc-if>
   </header>
+
+  <sc-if value="{{ showRest }}" hint-placeholder-val="{{ true }}">
 
   <div style="overflow: hidden; border-bottom: 1px solid rgba(232,228,220,0.12); padding: 16px 0; white-space: nowrap;" aria-hidden="true">
     <div style="display: inline-flex; width: max-content; animation: marquee 30s linear infinite; will-change: transform;">
@@ -373,6 +381,9 @@
   </section>
   </sc-if>
 
+  </sc-if>
+
+  <sc-if value="{{ showRest }}" hint-placeholder-val="{{ true }}">
   <section id="bio" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 6;" data-screen-label="Bio">
     <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
     <div style="max-width: 680px;">
@@ -404,6 +415,7 @@
     </div>
     <div style="margin-top: 48px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.35);">© 2026 Matías Cooke — CABA, Buenos Aires, Argentina</div>
   </footer>
+  </sc-if>
 
   <sc-if value="{{ showRail }}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; left: 0; top: 0; bottom: 0; width: 40px; z-index: 9; background: #0c0b09; border-right: 1px solid rgba(212,162,78,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;">
@@ -458,10 +470,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
 class Component extends DCLogic {
-  state = { trailerId: null, mediaList: null, mediaIdx: 0, showAllPhotos: false, fabOpen: false, isTouch: false, track: "all" };
+  state = { trailerId: null, mediaList: null, mediaIdx: 0, showAllPhotos: false, fabOpen: false, isTouch: false, track: "home" };
   pick(k) {
     this.setState({ track: k, fabOpen: false });
-    try { const u = new URL(location.href); if (k === "all") u.searchParams.delete("perfil"); else u.searchParams.set("perfil", k); history.replaceState(null, "", u); } catch (e) {}
+    try { const u = new URL(location.href); if (k === "all" || k === "home") u.searchParams.delete("perfil"); else u.searchParams.set("perfil", k); history.replaceState(null, "", u); } catch (e) {}
     setTimeout(() => {
       const h = document.querySelector("header"), n = document.querySelector("nav");
       if (h) window.scrollTo({ top: h.offsetTop + h.offsetHeight - (n ? n.offsetHeight : 0), behavior: "smooth" });
@@ -497,7 +509,7 @@ class Component extends DCLogic {
     };
     window.addEventListener("scroll", window.__mcScroll, { passive: true });
     this.wirePreviews(); setTimeout(() => this.wirePreviews(), 800);
-    try { const p = new URLSearchParams(location.search).get("perfil"); if (["dir", "redes", "gestion"].includes(p)) this.setState({ track: p }); } catch (e) {}
+    try { const p = new URLSearchParams(location.search).get("perfil"); if (["dir", "redes", "gestion", "all"].includes(p)) this.setState({ track: p }); } catch (e) {}
     if (window.matchMedia) this.setState({ isTouch: window.matchMedia("(pointer: coarse)").matches });
     if (window.__mcKeys) window.removeEventListener("keydown", window.__mcKeys);
     window.__mcKeys = e => {
@@ -697,10 +709,12 @@ class Component extends DCLogic {
           dir: [{ h: "#proyectos", l: "PROYECTOS" }, { h: "#creditos", l: "CRÉDITOS" }, { h: "#archivo", l: "EN RODAJE" }],
           redes: [{ h: "#digital", l: "REDES" }, { h: "#campana", l: "CAMPAÑA" }],
           gestion: [{ h: "#gestion", l: "GESTIÓN" }, { h: "#campana", l: "CAMPAÑA" }],
+          home: [],
           all: [{ h: "#proyectos", l: "PROYECTOS" }, { h: "#digital", l: "REDES" }, { h: "#gestion", l: "GESTIÓN" }],
         };
         const act = k => all || t === k;
-        const pal = k => ({ [k + "Border"]: t === k ? "#d4a24e" : "rgba(232,228,220,0.12)", [k + "Op"]: act(k) ? 1 : 0.5 });
+        const pal = k => ({ [k + "Border"]: t === k ? "#d4a24e" : "rgba(232,228,220,0.12)", [k + "Op"]: act(k) || t === "home" ? 1 : 0.5 });
+        const goSec = id => e => { e.preventDefault(); const f = () => { const el = document.getElementById(id), n = document.querySelector("nav"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (n ? n.offsetHeight : 0), behavior: "smooth" }); }; if (t === "home") this.setState({ track: "all" }, () => setTimeout(f, 80)); else f(); };
         return {
           navLinks: L[t].concat([{ h: "#bio", l: "BIO" }, { h: "#contacto", l: "CONTACTO" }]),
           trackTabs: [["all", "TODO"], ["dir", "DIRECCIÓN"], ["redes", "REDES"], ["gestion", "GESTIÓN"]].map(([k, l]) => ({ l, on: () => this.pick(k), bg: t === k ? "#d4a24e" : "transparent", fg: t === k ? "#0c0b09" : "rgba(232,228,220,0.7)" })),
@@ -709,6 +723,9 @@ class Component extends DCLogic {
           menuHide: () => this.setState({ menuOpen: false }),
           goTop: e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); },
           menuItems: [["redes", "Editor y CM", "01"], ["dir", "Realizador Audiovisual", "02"], ["gestion", "Project Manager", "03"], ["all", "Ver todo el portfolio", "↓"]].map(([k, l, n]) => ({ l, n, c: t === k ? "#d4a24e" : "#e8e4dc", on: () => { this.setState({ menuOpen: false }); this.pick(k); } })),
+          showRest: t !== "home", showAllBar: t !== "all",
+          pickAll: () => this.pick("all"),
+          goBio: goSec("bio"), goContacto: goSec("contacto"),
           pickDir: () => this.pick("dir"), pickRedes: () => this.pick("redes"), pickGestion: () => this.pick("gestion"),
           ...pal("dir"), ...pal("redes"), ...pal("gestion"),
           showDir: act("dir"), showRedes: act("redes"), showGestion: act("gestion"),
