@@ -30,7 +30,7 @@
   }
 </style>
 </helmet>
-<div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc; display: flex; flex-direction: column;">
+<div style="min-height: 100vh; background: #0c0b09; color: #e8e4dc; display: flex; flex-direction: column; padding-left: {{ railPad }}px; transition: padding-left 0.3s;">
 
   <nav style="display: flex; justify-content: space-between; align-items: center; padding: 26px 48px; border-bottom: 1px solid rgba(232,228,220,0.12); position: sticky; top: 0; background: rgba(12,11,9,0.92); backdrop-filter: blur(8px); z-index: 10;" data-screen-label="Nav">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; color: #d4a24e;">MATÍAS COOKE</div>
@@ -383,6 +383,28 @@
 
   </sc-if>
 
+  <sc-if value="{{ showNext }}" hint-placeholder-val="{{ false }}">
+  <section style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 5;" data-screen-label="Seguí viendo">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: #d4a24e; margin-bottom: 12px;">SEGUÍ VIENDO</div>
+    <p style="margin: 0 0 32px; font-size: 20px; font-weight: 300; color: rgba(232,228,220,0.78);">Hay dos áreas más de mi trabajo.</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+      <sc-for list="{{ nextAreas }}" as="na" hint-placeholder-count="2">
+        <div onClick="{{ na.on }}" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 30px 28px; border: 1px dashed rgba(212,162,78,0.55); background: repeating-linear-gradient(45deg, rgba(232,228,220,0.03) 0 14px, transparent 14px 28px); transition: border-color 0.3s;" style-hover="border-color: #d4a24e;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #d4a24e;">{{ na.n }}</span>
+            <span style="font-family: 'Newsreader', serif; font-size: 32px; font-weight: 600; line-height: 1.05;">{{ na.l }}</span>
+          </div>
+          <span style="font-size: 26px; color: #d4a24e; font-weight: 300;">→</span>
+        </div>
+      </sc-for>
+    </div>
+    <div onClick="{{ pickAll }}" style="margin-top: 14px; display: flex; justify-content: center; align-items: center; gap: 14px; padding: 18px; cursor: pointer; border: 1px dashed rgba(212,162,78,0.35); transition: border-color 0.3s;" style-hover="border-color: #d4a24e;">
+      <span style="font-size: 22px; color: #d4a24e; font-weight: 300; line-height: 1;">+</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #d4a24e;">VER TODO EL PORTFOLIO</span>
+    </div>
+  </section>
+  </sc-if>
+
   <sc-if value="{{ showRest }}" hint-placeholder-val="{{ true }}">
   <section id="bio" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 6;" data-screen-label="Bio">
     <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
@@ -418,9 +440,16 @@
   </sc-if>
 
   <sc-if value="{{ showRail }}" hint-placeholder-val="{{ false }}">
-    <div style="position: fixed; left: 0; top: 0; bottom: 0; width: 40px; z-index: 9; background: #0c0b09; border-right: 1px solid rgba(212,162,78,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;">
-      <sc-for list="{{ railItems }}" as="r" hint-placeholder-count="3">
-        <div onClick="{{ r.go }}" style="cursor: pointer; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.22em; color: #d4a24e; white-space: nowrap;">{{ r.l }}</div>
+    <div onMouseEnter="{{ railIn }}" onMouseLeave="{{ railOut }}" style="position: fixed; left: 0; top: 0; bottom: 0; z-index: 9; display: flex;">
+      <sc-for list="{{ railItems }}" as="r" hint-placeholder-count="1">
+        <div onClick="{{ r.go }}" style="cursor: pointer; width: 40px; flex-shrink: 0; background: #0c0b09; border-right: 1px solid rgba(212,162,78,0.5); display: flex; align-items: center; justify-content: center;">
+          <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.22em; color: #d4a24e; white-space: nowrap;">{{ r.l }}</div>
+        </div>
+      </sc-for>
+      <sc-for list="{{ railOthers }}" as="o" hint-placeholder-count="2">
+        <div onClick="{{ o.go }}" style="cursor: pointer; width: {{ o.w }}px; flex-shrink: 0; overflow: hidden; background: #17150f; border-right: 1px solid rgba(212,162,78,0.3); display: flex; align-items: center; justify-content: center; transition: width 0.35s cubic-bezier(0.22,1,0.36,1), background 0.2s;" style-hover="background: #221e15;">
+          <div style="writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: 0.22em; color: rgba(232,228,220,0.75); white-space: nowrap; opacity: {{ o.op }}; transition: opacity 0.25s;">{{ o.l }}</div>
+        </div>
       </sc-for>
     </div>
   </sc-if>
@@ -725,6 +754,8 @@ class Component extends DCLogic {
           menuItems: [["redes", "Editor y CM", "01"], ["dir", "Realizador Audiovisual", "02"], ["gestion", "Project Manager", "03"], ["all", "Ver todo el portfolio", "↓"]].map(([k, l, n]) => ({ l, n, c: t === k ? "#d4a24e" : "#e8e4dc", on: () => { this.setState({ menuOpen: false }); this.pick(k); } })),
           showRest: t !== "home", showAllBar: t !== "all",
           pickAll: () => this.pick("all"),
+          showNext: ["dir", "redes", "gestion"].includes(t),
+          nextAreas: [["redes", "01", "Editor y community manager"], ["dir", "02", "Realizador audiovisual"], ["gestion", "03", "Project manager"]].filter(([k]) => k !== t).map(([k, n, l]) => ({ n, l, on: () => this.pick(k) })),
           goBio: goSec("bio"), goContacto: goSec("contacto"),
           pickDir: () => this.pick("dir"), pickRedes: () => this.pick("redes"), pickGestion: () => this.pick("gestion"),
           ...pal("dir"), ...pal("redes"), ...pal("gestion"),
@@ -734,6 +765,10 @@ class Component extends DCLogic {
           campArea: t === "gestion" ? "gestion" : "redes",
           showRail: !!this.state.area,
           railItems: [["redes", "EDITOR Y CM"], ["dir", "REALIZADOR AUDIOVISUAL"], ["gestion", "PROJECT MANAGER"]].filter(([k]) => k === this.state.area).map(([k, l]) => ({ l, go: () => window.scrollTo({ top: 0, behavior: "smooth" }) })),
+          railOthers: [["redes", "EDITOR Y CM"], ["dir", "REALIZADOR AUDIOVISUAL"], ["gestion", "PROJECT MANAGER"]].filter(([k]) => k !== this.state.area).map(([k, l]) => ({ l, w: this.state.railHover ? 38 : 6, op: this.state.railHover ? 1 : 0, go: () => { this.setState({ railHover: false }); if (t === "all") this.goArea(k); else this.pick(k); } })),
+          railPad: this.state.area && !this.state.isTouch ? 52 : 0,
+          railIn: () => this.setState({ railHover: true }),
+          railOut: () => this.setState({ railHover: false }),
           gestionOrder: t === "gestion" ? 0 : 5,
         };
       })(),
