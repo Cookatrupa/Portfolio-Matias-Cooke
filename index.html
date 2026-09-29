@@ -10,7 +10,7 @@
 <helmet>
 <meta name="viewport" content="width=1280, user-scalable=yes">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500..700&display=swap" rel="stylesheet">
 <style>
   html, body { margin: 0; padding: 0; background: #0c0b09; }
   body { font-family: 'Archivo', sans-serif; }
@@ -34,23 +34,81 @@
 
   <nav style="display: flex; justify-content: space-between; align-items: center; padding: 26px 48px; border-bottom: 1px solid rgba(232,228,220,0.12); position: sticky; top: 0; background: rgba(12,11,9,0.92); backdrop-filter: blur(8px); z-index: 10;" data-screen-label="Nav">
     <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; color: #d4a24e;">MATÍAS COOKE</div>
-    <div style="display: flex; gap: 28px; font-size: 13.5px; letter-spacing: 0.08em; font-weight: 500;">
-      <a href="#proyectos">PROYECTOS</a>
-      <a href="#creditos">CRÉDITOS</a>
-      <a href="#digital">DIGITAL</a>
-      <a href="#archivo">EN RODAJE</a>
+    <div style="display: flex; gap: 30px; align-items: center; font-size: 13.5px; letter-spacing: 0.08em; font-weight: 500;">
+      <div onMouseEnter="{{ menuShow }}" onMouseLeave="{{ menuHide }}" style="position: relative;">
+        <a href="#" onClick="{{ goTop }}" style="display: flex; gap: 8px; align-items: center; padding: 8px 0;">INICIO <span style="font-size: 10px; color: #d4a24e;">▾</span></a>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="position: absolute; top: 100%; right: 0; padding-top: 10px; z-index: 20;">
+            <div style="background: rgba(12,11,9,0.98); border: 1px solid rgba(212,162,78,0.45); min-width: 260px; display: flex; flex-direction: column; box-shadow: 0 18px 50px rgba(0,0,0,0.6);">
+              <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="4">
+                <div onClick="{{ m.on }}" style="padding: 15px 20px; cursor: pointer; border-bottom: 1px solid rgba(232,228,220,0.08); display: flex; justify-content: space-between; gap: 16px; color: {{ m.c }};" style-hover="background: rgba(212,162,78,0.12);">
+                  <span>{{ m.l }}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #d4a24e;">{{ m.n }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
       <a href="#bio">BIO</a>
       <a href="#contacto">CONTACTO</a>
     </div>
   </nav>
 
   <header style="padding: 96px 48px 72px; border-bottom: 1px solid rgba(232,228,220,0.12);" data-screen-label="Hero">
-    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: #d4a24e; margin-bottom: 20px;">CINE · SERIES · PUBLICIDAD — BUENOS AIRES</div>
-    <h1 style="margin: 0; font-size: clamp(56px, 9vw, 128px); line-height: 0.95; font-weight: 800; font-stretch: 90%; letter-spacing: -0.02em;">MATÍAS<br>COOKE</h1>
-    <p style="margin: 30px 0 0; max-width: 620px; font-size: 19px; line-height: 1.5; font-weight: 300; color: rgba(232,228,220,0.78);">Ayudante de dirección y coordinador de proyectos. Cinco años haciendo que las cosas pasen en rodajes de todas las escalas — para Netflix, Star+, HBO, Prime Video, Disney+ y Paramount+.</p>
-    <div style="display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap;">
-      <a href="uploads/CV_Matias_Cooke_2026.docx" download="CV Matias Cooke 2026.docx" style="display: inline-block; padding: 13px 26px; background: #d4a24e; color: #0c0b09; font-weight: 700; font-size: 14px; letter-spacing: 0.08em;" style-hover="background: #e8e4dc; color: #0c0b09;">DESCARGAR CV ↓</a>
-      <a href="#proyectos" style="display: inline-block; padding: 13px 26px; border: 1px solid rgba(232,228,220,0.3); font-weight: 500; font-size: 14px; letter-spacing: 0.08em;" style-hover="border-color: #d4a24e;">VER PROYECTOS</a>
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.22em; color: #d4a24e; margin-bottom: 20px;">DIRECCIÓN · EDICIÓN · GESTIÓN — BUENOS AIRES</div>
+        <h1 style="margin: 0; font-size: clamp(56px, 8vw, 112px); line-height: 0.95; font-weight: 800; font-stretch: 90%; letter-spacing: -0.02em;">MATÍAS<br>COOKE</h1>
+      </div>
+      <div style="max-width: 460px;">
+        <p style="margin: 0; font-size: 17px; line-height: 1.55; font-weight: 300; color: rgba(232,228,220,0.78); text-wrap: pretty;">Project &amp; Community Manager y Realizador Audiovisual. Cinco años en rodajes para Netflix, HBO, Prime Video, Disney+ y Paramount+, y desde 2020 a cargo de redes, contenido, campañas y eventos en Zona Igualdad.</p>
+        <div style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;">
+          <a href="uploads/CV_Matias_Cooke_2026_ProdDig.docx" download="CV Matias Cooke 2026.docx" style="display: inline-block; padding: 12px 22px; background: #d4a24e; color: #0c0b09; font-weight: 700; font-size: 13px; letter-spacing: 0.08em;" style-hover="background: #e8e4dc; color: #0c0b09;">DESCARGAR CV ↓</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; color: rgba(232,228,220,0.5); margin: 56px 0 16px;">ELEGÍ UN PERFIL</div>
+    <div style="display: flex; gap: 14px; height: 460px;">
+      <div onClick="{{ pickRedes }}" style="position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; cursor: pointer; background: #17150f; border: 1px solid {{ redesBorder }}; opacity: {{ redesOp }}; transition: flex-grow 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.3s, border-color 0.3s;" style-hover="flex-grow: 1.8; opacity: 1;">
+        <div style="position: absolute; inset: 0; background-image: url('posters/redes-01.png'); background-size: cover; background-position: center;"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.96) 22%, rgba(12,11,9,0.3) 70%, rgba(12,11,9,0.6));"></div>
+        <div style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; box-sizing: border-box;">
+          <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #d4a24e;"><span>01</span><span>CONTENIDO · CM</span></div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #d4a24e;">EDICIÓN Y REDES</div>
+            <h2 style="margin: 10px 0 14px; font-family: 'Newsreader', serif; font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.01em;">Editor y community manager</h2>
+            <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.5; color: rgba(232,228,220,0.78); max-width: 340px;">Planificación, creación y edición de contenido para Instagram, TikTok, X, Facebook y YouTube. Comunidad digital de @zonaigualdad.</p>
+            <span style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #d4a24e; border: 1px solid #d4a24e; padding: 10px 16px;">VER TRABAJO →</span>
+          </div>
+        </div>
+      </div>
+      <div onClick="{{ pickDir }}" style="position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; cursor: pointer; background: #17150f; border: 1px solid {{ dirBorder }}; opacity: {{ dirOp }}; transition: flex-grow 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.3s, border-color 0.3s;" style-hover="flex-grow: 1.8; opacity: 1;">
+        <div style="position: absolute; inset: 0; background-image: url('uploads/20260429_080100.jpg'); background-size: cover; background-position: center;"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.96) 22%, rgba(12,11,9,0.3) 70%, rgba(12,11,9,0.6));"></div>
+        <div style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; box-sizing: border-box;">
+          <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #d4a24e;"><span>02</span><span>CINE · SERIES · PUBLICIDAD</span></div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #d4a24e;">DIRECCIÓN</div>
+            <h2 style="margin: 10px 0 14px; font-family: 'Newsreader', serif; font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.01em;">Realizador audiovisual</h2>
+            <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.5; color: rgba(232,228,220,0.78); max-width: 340px;">Coordinador de extras y 1° / 2° de dirección en películas, series y publicidad. Planes de rodaje, equipos y set.</p>
+            <span style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #d4a24e; border: 1px solid #d4a24e; padding: 10px 16px;">VER TRABAJO →</span>
+          </div>
+        </div>
+      </div>
+      <div onClick="{{ pickGestion }}" style="position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; cursor: pointer; background: #17150f; border: 1px solid {{ gestionBorder }}; opacity: {{ gestionOp }}; transition: flex-grow 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.3s, border-color 0.3s;" style-hover="flex-grow: 1.8; opacity: 1;">
+        <div style="position: absolute; inset: 0; background-image: url('uploads/IMG_6541.JPEG'); background-size: cover; background-position: center;"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.96) 22%, rgba(12,11,9,0.3) 70%, rgba(12,11,9,0.6));"></div>
+        <div style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; box-sizing: border-box;">
+          <div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #d4a24e;"><span>03</span><span>CAMPAÑAS · EVENTOS</span></div>
+          <div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; color: #d4a24e;">GESTIÓN</div>
+            <h2 style="margin: 10px 0 14px; font-family: 'Newsreader', serif; font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.01em;">Project manager</h2>
+            <p style="margin: 0 0 22px; font-size: 15px; line-height: 1.5; color: rgba(232,228,220,0.78); max-width: 340px;">Campañas, 40+ eventos, relaciones institucionales y proyectos para fondos internacionales.</p>
+            <span style="display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #d4a24e; border: 1px solid #d4a24e; padding: 10px 16px;">VER TRABAJO →</span>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -61,7 +119,8 @@
     </div>
   </div>
 
-  <section id="proyectos" data-reveal="1" style="padding: 72px 48px; order: 1;" data-screen-label="Proyectos">
+  <sc-if value="{{ showDir }}" hint-placeholder-val="{{ true }}">
+  <section id="proyectos" data-reveal="1" data-area="dir" data-sub="Proyectos" style="padding: 72px 48px; order: 2;" data-screen-label="Proyectos">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">PROYECTOS SELECCIONADOS</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">2022 — 2026</div>
@@ -101,8 +160,10 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
-  <section id="archivo" data-reveal="1" style="padding: 64px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 4;" data-screen-label="En rodaje">
+  <sc-if value="{{ showDir }}" hint-placeholder-val="{{ true }}">
+  <section id="archivo" data-reveal="1" data-area="dir" data-sub="En rodaje" style="padding: 64px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 4;" data-screen-label="En rodaje">
     <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px;">
       <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">EN RODAJE — MATERIAL DE ARCHIVO</h2>
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">DETRÁS DE CÁMARA</div>
@@ -122,7 +183,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; margin-bottom: 20px; align-items: start;">
         <sc-for list="{{ archiveVideos }}" as="v" hint-placeholder-count="3">
           <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
-            <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+            <video src="{{ v.src }}" poster="{{ v.poster }}" data-preview="1" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; object-fit: cover; display: block;"></video>
             <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.75), transparent 40%);">
               <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 17px; backdrop-filter: blur(3px);">▶</div>
             </div>
@@ -142,20 +203,53 @@
       <button onClick="{{ togglePhotos }}" style="background: none; border: 1px solid #d4a24e; color: #d4a24e; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; padding: 13px 28px; cursor: pointer;" style-hover="background: #d4a24e; color: #0c0b09;">{{ photosBtnLabel }}</button>
     </div>
   </section>
+  </sc-if>
 
-  <section id="digital" style="order: 3; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contenido digital">
-    <div data-reveal="1" style="padding: 72px 48px 64px;">
+  <sc-if value="{{ showGestion }}" hint-placeholder-val="{{ true }}">
+  <section id="gestion" data-reveal="1" data-area="gestion" data-sub="Zona Igualdad" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: {{ gestionOrder }};" data-screen-label="Gestión de proyectos">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 32px;">
+      <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">GESTIÓN DE PROYECTOS</h2>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — 2020 / HOY</div>
+    </div>
+    <p style="margin: 0 0 44px; max-width: 760px; font-size: 23px; line-height: 1.45; font-weight: 300; text-wrap: pretty;">Coordinación de proyectos, campañas y eventos en la ONG Zona Igualdad: planificación, equipos, presupuestos y articulación institucional.</p>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px;">
+      <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 16px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; color: #d4a24e; margin-bottom: 10px;">CAMPAÑAS</div>
+        <div style="font-size: 15px; line-height: 1.55; color: rgba(232,228,220,0.78);">Nombralo. Es Odio: estrategia, identidad visual y producción audiovisual de una campaña nacional.</div>
+      </div>
+      <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 16px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; color: #d4a24e; margin-bottom: 10px;">EVENTOS</div>
+        <div style="font-size: 15px; line-height: 1.55; color: rgba(232,228,220,0.78);">Producción integral de 40+ eventos con artistas, funcionarios y embajadas: logística, locaciones, proveedores, presupuesto y cobertura en vivo.</div>
+      </div>
+      <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 16px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; color: #d4a24e; margin-bottom: 10px;">ARTICULACIÓN</div>
+        <div style="font-size: 15px; line-height: 1.55; color: rgba(232,228,220,0.78);">Embajadas, legisladores y organismos de derechos humanos.</div>
+      </div>
+      <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 16px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: 0.16em; color: #d4a24e; margin-bottom: 10px;">FONDOS Y CAPACITACIONES</div>
+        <div style="font-size: 15px; line-height: 1.55; color: rgba(232,228,220,0.78);">Proyectos y presupuestos para fondos internacionales (embajadas, All Out, FIT). Capacitaciones para empresas, organizaciones e instituciones educativas.</div>
+      </div>
+    </div>
+    <a href="#campana" style="display: inline-block; margin-top: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #d4a24e; border: 1px solid #d4a24e; padding: 13px 24px;" style-hover="background: #d4a24e; color: #0c0b09;">VER CASO: NOMBRALO. ES ODIO ↓</a>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showDigital }}" hint-placeholder-val="{{ true }}">
+  <section id="digital" style="order: 1; border-top: 1px solid rgba(232,228,220,0.12);" data-screen-label="Contenido digital">
+    <sc-if value="{{ showRedes }}" hint-placeholder-val="{{ true }}">
+    <div data-reveal="1" data-area="redes" data-sub="Redes" style="padding: 72px 48px 64px;">
       <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px;">
-        <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTENIDO DIGITAL</h2>
+        <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">EDICIÓN Y REDES</h2>
         <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(232,228,220,0.45);">ZONA IGUALDAD — REDES Y CAMPAÑAS</div>
       </div>
+      <p style="margin: 0 0 40px; max-width: 720px; font-size: 20px; line-height: 1.5; font-weight: 300; text-wrap: pretty;">Gestión de contenido de @zonaigualdad en Instagram, TikTok, X, Facebook y YouTube: planificación, creación, edición y comunicación con la comunidad digital.</p>
       <h3 style="margin: 0 0 28px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Redes</h3>
       <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px 20px;">
         <sc-for list="{{ socialVideos }}" as="v" hint-placeholder-count="9">
           <div>
             <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #17150f; box-shadow: 0 8px 24px rgba(0,0,0,0.4);" style-hover="transform: translateY(-3px)">
               <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
-                <div role="img" aria-label="{{ v.t }}" style="width: 100%; aspect-ratio: 4/5; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+                <video src="{{ v.src }}" poster="{{ v.poster }}" data-preview="1" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-label="{{ v.t }}" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block;"></video>
               </sc-if>
               <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.65), transparent 45%);">
                 <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(12,11,9,0.6); border: 1px solid #d4a24e; color: #d4a24e; display: flex; align-items: center; justify-content: center; font-size: 16px; backdrop-filter: blur(3px);">▶</div>
@@ -168,15 +262,39 @@
           </div>
         </sc-for>
       </div>
+      <h3 style="margin: 64px 0 28px; font-size: 24px; font-weight: 800; letter-spacing: 0.01em;">Cuentas que manejo</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; max-width: 940px;">
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+              <span style="font-size: 16px; font-weight: 700;">Zona Igualdad</span>
+              <a href="https://www.instagram.com/zonaigualdad/" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #d4a24e;" style-hover="color: #e8e4dc;">@ZONAIGUALDAD ↗</a>
+            </div>
+            <div style="background: #fff; height: 640px; overflow: hidden; box-shadow: 0 12px 32px rgba(0,0,0,0.5);">
+              <iframe src="https://www.instagram.com/zonaigualdad/embed/" loading="lazy" title="Feed de Instagram de Zona Igualdad" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px;">
+              <span style="font-size: 16px; font-weight: 700;">Nombralo. Es Odio</span>
+              <a href="https://www.instagram.com/nombraloesodio/" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.14em; color: #d4a24e;" style-hover="color: #e8e4dc;">@NOMBRALOESODIO ↗</a>
+            </div>
+            <div style="background: #fff; height: 640px; overflow: hidden; box-shadow: 0 12px 32px rgba(0,0,0,0.5);">
+              <iframe src="https://www.instagram.com/nombraloesodio/embed/" loading="lazy" title="Feed de Instagram de Nombralo. Es Odio" style="width: 100%; height: 100%; border: 0; display: block;"></iframe>
+            </div>
+          </div>
+      </div>
     </div>
+    </sc-if>
 
-    <div data-reveal="1" style="background: #ece7db; color: #16130f; padding: 72px 48px; border-top: 6px solid #d6201b;" data-screen-label="Campaña Nombralo Es Odio">
+    <div id="campana" data-reveal="1" data-area="{{ campArea }}" data-sub="Nombralo. Es Odio" style="background: #ece7db; color: #16130f; padding: 72px 48px; border-top: 6px solid #d6201b;" data-screen-label="Campaña Nombralo Es Odio">
       <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.22em; color: #d6201b; margin-bottom: 18px;">CAMPAÑA · ZONA IGUALDAD · CONTRA LOS DISCURSOS DE ODIO</div>
       <div style="display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap; margin-bottom: 22px;">
         <h3 style="margin: 0; font-size: clamp(38px, 5.5vw, 72px); line-height: 0.98; font-weight: 900; letter-spacing: -0.02em;">NOMBRALO. <span style="color: #d6201b;">ES ODIO.</span></h3>
         <a href="https://nombraloesodio.org.ar" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d6201b; border-bottom: 1px solid #d6201b; padding-bottom: 2px;" style-hover="color: #16130f; border-color: #16130f;">NOMBRALOESODIO.ORG.AR ↗</a>
+        <a href="https://www.instagram.com/nombraloesodio/" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; color: #d6201b; border-bottom: 1px solid #d6201b; padding-bottom: 2px;" style-hover="color: #16130f; border-color: #16130f;">@NOMBRALOESODIO ↗</a>
       </div>
       <p style="margin: 0 0 36px; max-width: 640px; font-size: 16px; line-height: 1.6; color: rgba(22,19,15,0.75);">Coordinación de la campaña contra los discursos de odio: articulación con embajadas, legisladores y organismos de DDHH, y desarrollo de la estrategia audiovisual completa — identidad visual, contenido multimedia y piezas de difusión.</p>
+      <sc-if value="{{ showCampContent }}" hint-placeholder-val="{{ true }}">
       <div data-stagger="1" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-bottom: 56px; align-items: start;">
         <sc-for list="{{ campaignPieces }}" as="cp" hint-placeholder-count="5">
           <div onClick="{{ cp.onOpen }}" style="cursor: zoom-in; background: #fff; box-shadow: 0 10px 28px rgba(22,19,15,0.25);" style-hover="transform: translateY(-3px)">
@@ -194,7 +312,7 @@
         <sc-for list="{{ campaignSpots }}" as="v" hint-placeholder-count="4">
           <div onClick="{{ v.onOpen }}" style="position: relative; cursor: pointer; background: #16130f; box-shadow: 0 10px 28px rgba(22,19,15,0.3);" style-hover="transform: translateY(-3px)">
             <sc-if value="{{ v.ready }}" hint-placeholder-val="{{ false }}">
-              <div role="img" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; background-image: url('{{ v.poster }}'); background-size: cover; background-position: center;"></div>
+              <video src="{{ v.src }}" poster="{{ v.poster }}" data-preview="1" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="metadata" aria-label="{{ v.label }}" style="width: 100%; aspect-ratio: {{ v.r }}; object-fit: cover; display: block;"></video>
             </sc-if>
             <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(to top, rgba(12,11,9,0.7), transparent 45%);">
               <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(236,231,219,0.85); border: 1px solid #d6201b; color: #d6201b; display: flex; align-items: center; justify-content: center; font-size: 16px;">▶</div>
@@ -203,7 +321,9 @@
           </div>
         </sc-for>
       </div>
+      </sc-if>
 
+      <sc-if value="{{ showCampLaunch }}" hint-placeholder-val="{{ true }}">
       <div style="display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px;">
         <h4 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.2em; color: #d6201b; font-weight: 500;">LANZAMIENTO E INCIDENCIA LEGISLATIVA</h4>
         <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(22,19,15,0.55);">EMBAJADA DE CANADÁ · CONGRESO DE LA NACIÓN</span>
@@ -225,10 +345,13 @@
           <span style="position: absolute; left: 12px; bottom: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(236,231,219,0.9);">VIDEO — LANZAMIENTO</span>
         </div>
       </div>
+      </sc-if>
     </div>
   </section>
+  </sc-if>
 
-  <section id="creditos" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 2;" data-screen-label="Créditos">
+  <sc-if value="{{ showDir }}" hint-placeholder-val="{{ true }}">
+  <section id="creditos" data-reveal="1" data-area="dir" data-sub="Créditos" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); order: 3;" data-screen-label="Créditos">
     <h2 style="margin: 0 0 48px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CRÉDITOS COMPLETOS</h2>
     <div style="display: flex; flex-direction: column; gap: 48px;">
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
@@ -248,8 +371,9 @@
       </sc-for>
     </div>
   </section>
+  </sc-if>
 
-  <section id="bio" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 5;" data-screen-label="Bio">
+  <section id="bio" data-reveal="1" style="padding: 72px 48px; border-top: 1px solid rgba(232,228,220,0.12); display: grid; grid-template-columns: 1fr 2fr; gap: 48px; order: 6;" data-screen-label="Bio">
     <h2 style="margin: 0; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">BIO</h2>
     <div style="max-width: 680px;">
       <p style="margin: 0; font-size: 23px; line-height: 1.5; font-weight: 300;">Soy organizador antes que otra cosa: la persona que hace que las cosas pasen. Técnico audiovisual con cinco años coordinando equipos, tiempos y logística en producciones de todas las escalas.</p>
@@ -257,17 +381,17 @@
       <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
         <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 14px;">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #d4a24e; margin-bottom: 6px;">FORMACIÓN</div>
-          <div style="font-size: 14.5px; line-height: 1.5;">Técnico en Dirección Cinematográfica — Universidad del Cine (FUC)<br>Lic. en Comunicación Audiovisual — UNSAM</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Técnico en Dirección Cinematográfica — FUC (2021)<br>Lic. en Comunicación Audiovisual — UNSAM (2025)<br>Community Manager & Publicidad — Coder House</div>
         </div>
         <div style="border-top: 1px solid rgba(232,228,220,0.2); padding-top: 14px;">
           <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #d4a24e; margin-bottom: 6px;">HERRAMIENTAS</div>
-          <div style="font-size: 14.5px; line-height: 1.5;">Movie Magic Scheduling · Premiere Pro · After Effects · Photoshop · Canva · Keynote</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Movie Magic Scheduling · Premiere Pro · After Effects · Photoshop · Illustrator · Canva · Keynote · Slack</div>
         </div>
       </div>
     </div>
   </section>
 
-  <footer id="contacto" style="padding: 72px 48px 56px; border-top: 1px solid rgba(232,228,220,0.12); order: 6;" data-screen-label="Contacto">
+  <footer id="contacto" style="padding: 72px 48px 56px; border-top: 1px solid rgba(232,228,220,0.12); order: 7;" data-screen-label="Contacto">
     <h2 style="margin: 0 0 24px; font-size: 15px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.22em; color: #d4a24e;">CONTACTO</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 20px 48px; align-items: baseline;">
       <a href="mailto:cookematias@gmail.com" style="font-size: clamp(26px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.01em;">cookematias@gmail.com</a>
@@ -275,11 +399,19 @@
         <a href="tel:+541154118946">+54 11 5411-8946</a>
         <a href="https://www.instagram.com/maticooke" target="_blank" rel="noopener">INSTAGRAM</a>
         <a href="https://www.linkedin.com/in/matias-cooke/" target="_blank" rel="noopener">LINKEDIN</a>
-        <a href="uploads/CV_Matias_Cooke_2026.docx" download="CV Matias Cooke 2026.docx">CV ↓</a>
+        <a href="uploads/CV_Matias_Cooke_2026_ProdDig.docx" download="CV Matias Cooke 2026.docx">CV ↓</a>
       </div>
     </div>
     <div style="margin-top: 48px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: rgba(232,228,220,0.35);">© 2026 Matías Cooke — CABA, Buenos Aires, Argentina</div>
   </footer>
+
+  <sc-if value="{{ showRail }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 0; top: 0; bottom: 0; width: 40px; z-index: 9; background: #0c0b09; border-right: 1px solid rgba(212,162,78,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px;">
+      <sc-for list="{{ railItems }}" as="r" hint-placeholder-count="3">
+        <div onClick="{{ r.go }}" style="cursor: pointer; writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; letter-spacing: 0.22em; color: #d4a24e; white-space: nowrap;">{{ r.l }}</div>
+      </sc-for>
+    </div>
+  </sc-if>
 
   <sc-if value="{{ showFab }}" hint-placeholder-val="{{ false }}">
     <div style="position: fixed; right: 26px; bottom: 26px; z-index: 90; display: flex; flex-direction: column; align-items: flex-end; gap: 16px;">
@@ -326,8 +458,46 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;grilla&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;amplia&quot;, &quot;options&quot;: [&quot;amplia&quot;, &quot;compacta&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Grilla de proyectos&quot;}}">
 class Component extends DCLogic {
-  state = { trailerId: null, mediaList: null, mediaIdx: 0, showAllPhotos: false, fabOpen: false, isTouch: false };
+  state = { trailerId: null, mediaList: null, mediaIdx: 0, showAllPhotos: false, fabOpen: false, isTouch: false, track: "all" };
+  pick(k) {
+    this.setState({ track: k, fabOpen: false });
+    try { const u = new URL(location.href); if (k === "all") u.searchParams.delete("perfil"); else u.searchParams.set("perfil", k); history.replaceState(null, "", u); } catch (e) {}
+    setTimeout(() => {
+      const h = document.querySelector("header"), n = document.querySelector("nav");
+      if (h) window.scrollTo({ top: h.offsetTop + h.offsetHeight - (n ? n.offsetHeight : 0), behavior: "smooth" });
+    }, 60);
+  }
+  wirePreviews() {
+    document.querySelectorAll("video[data-preview]").forEach(el => this.pv(el));
+  }
+  componentDidUpdate() { this.wirePreviews(); }
+  pv = el => {
+    if (!el || el._pv) return;
+    el._pv = 1; el.muted = true; el.defaultMuted = true; el.loop = true; el.playsInline = true; el.setAttribute("playsinline", "");
+    if (!this._vio) this._vio = new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause()), { threshold: 0.2 });
+    this._vio.observe(el);
+  };
+  goArea(k) {
+    const go = () => {
+      const el = document.querySelector('[data-area="' + k + '"]'), n = document.querySelector("nav");
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (n ? n.offsetHeight : 0), behavior: "smooth" });
+    };
+    if (document.querySelector('[data-area="' + k + '"]')) go(); else this.setState({ track: "all" }, () => setTimeout(go, 60));
+  }
   componentDidMount() {
+    if (window.__mcScroll) window.removeEventListener("scroll", window.__mcScroll);
+    window.__mcScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => {
+        this._raf = 0;
+        const y = window.innerHeight * 0.45; let area = null, sub = null;
+        document.querySelectorAll("[data-area]").forEach(el => { const r = el.getBoundingClientRect(); if (r.top <= y && r.bottom > y) { area = el.dataset.area; sub = el.dataset.sub; } });
+        if (area !== this.state.area || sub !== this.state.areaSub) this.setState({ area, areaSub: sub });
+      });
+    };
+    window.addEventListener("scroll", window.__mcScroll, { passive: true });
+    this.wirePreviews(); setTimeout(() => this.wirePreviews(), 800);
+    try { const p = new URLSearchParams(location.search).get("perfil"); if (["dir", "redes", "gestion"].includes(p)) this.setState({ track: p }); } catch (e) {}
     if (window.matchMedia) this.setState({ isTouch: window.matchMedia("(pointer: coarse)").matches });
     if (window.__mcKeys) window.removeEventListener("keydown", window.__mcKeys);
     window.__mcKeys = e => {
@@ -404,6 +574,7 @@ class Component extends DCLogic {
       { name: "2° Ayudante de Dirección", items: [
         { t: "El Enemigo Interno (Villaflor)", f: "Película", p: "La Unión de los Ríos / Netflix", y: "2026" },
         { t: "La Pistolera", f: "Película", p: "Rei Cine / Zeppelin", y: "2025", tr: "https://www.youtube.com/watch?v=VzqBZZEvkYk" },
+        { t: "Neisis", f: "Película", p: "Historias / Zeppelin", y: "2025" },
         { t: "La Casaca de Dios", f: "Película", p: "Frontera Cine / Prime Video", y: "2025", tr: "https://www.youtube.com/watch?v=caurr7_eECk" },
         { t: "Chaira", f: "Serie", p: "Polka / Star+", y: "2022–23" },
         { t: "El Rapto", f: "Película", p: "REI Cine / Paramount+", y: "2022", tr: "https://www.youtube.com/watch?v=nEv0CcVOXNk" },
@@ -478,7 +649,7 @@ class Component extends DCLogic {
         ["uploads/video-set-01.mp4", "posters/video-set-01.png", "720/1280", "VIDEO DE SET — 01"],
         ["uploads/20251114_040911.mp4", "posters/20251114_040911.png", "1080/1920", "VIDEO DE SET — 02"],
         ["uploads/20230919_064618.mp4", "posters/20230919_064618.png", "1080/1920", "VIDEO DE SET — 03"],
-      ].map(([src, poster, r, label], i, arr) => ({ poster, r, label, ready: true, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
+      ].map(([src, poster, r, label], i, arr) => ({ src, poster, r, label, ready: true, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
       campaignPieces: [
         ["uploads/0.png", "1080/1350"],
         ["uploads/0-dc7d4175.png", "1080/1350"],
@@ -500,7 +671,7 @@ class Component extends DCLogic {
         ["uploads/_2520061023.mp4", "posters/_2520061023.png", "720/1280"],
         ["uploads/_2520133705.mp4", "posters/_2520133705.png", "720/1280"],
         ["uploads/_2520187089.mp4", "posters/_2520187089.png", "720/1280"],
-      ].map(([src, poster, r], i, arr) => ({ poster, r, ready: true, label: `SPOT — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
+      ].map(([src, poster, r], i, arr) => ({ src, poster, r, ready: true, label: `SPOT — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
       socialVideos: [
         ["uploads/redes-01.mp4", "posters/redes-01.png", "1920/1080", "Romper el Código", "PIEZA DE REDES"],
         ["uploads/02.mp4", "posters/redes-02.png", "1280/720", "Sanción del Matrimonio Igualitario", "EFEMÉRIDE"],
@@ -511,17 +682,44 @@ class Component extends DCLogic {
         ["uploads/4.mp4", "posters/redes-4.png", "1080/1920", "Charla con Gabriela Ivy", "COBERTURA"],
         ["uploads/7.mp4", "posters/redes-7.png", "720/1280", "Alonorma", "PIEZA SOBRE ASEXUALIDAD"],
         ["uploads/8.mp4", "posters/redes-8.png", "720/720", "Todas las Banderas", "PLACA GRÁFICA"],
-      ].map(([src, poster, r, t, tag], i, arr) => ({ poster, r, t, tag, ready: true, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
+        ["uploads/redes-10.mp4", "posters/redes-10.png", "720/1280", "Día del Activismo por la Diversidad Sexual", "EFEMÉRIDE"],
+        ["uploads/redes-11.mp4", "posters/redes-11.png", "720/1280", "Día Internacional de la Juventud", "EFEMÉRIDE"],
+        ["uploads/redes-12.mp4", "posters/redes-12.png", "720/1280", "Ranchada en Parque Los Andes", "COBERTURA"],
+      ].map(([src, poster, r, t, tag], i, arr) => ({ src, poster, r, t, tag, ready: true, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
       showFab: this.state.isTouch,
       fabOpen: this.state.fabOpen,
       fabIcon: this.state.fabOpen ? "✕" : "☰",
       toggleFab: () => this.setState(s => ({ fabOpen: !s.fabOpen })),
       closeFab: () => this.setState({ fabOpen: false }),
-      navLinks: [
-        { h: "#proyectos", l: "PROYECTOS" }, { h: "#creditos", l: "CRÉDITOS" },
-        { h: "#digital", l: "DIGITAL" }, { h: "#archivo", l: "EN RODAJE" },
-        { h: "#bio", l: "BIO" }, { h: "#contacto", l: "CONTACTO" },
-      ],
+      ...(() => {
+        const t = this.state.track, all = t === "all";
+        const L = {
+          dir: [{ h: "#proyectos", l: "PROYECTOS" }, { h: "#creditos", l: "CRÉDITOS" }, { h: "#archivo", l: "EN RODAJE" }],
+          redes: [{ h: "#digital", l: "REDES" }, { h: "#campana", l: "CAMPAÑA" }],
+          gestion: [{ h: "#gestion", l: "GESTIÓN" }, { h: "#campana", l: "CAMPAÑA" }],
+          all: [{ h: "#proyectos", l: "PROYECTOS" }, { h: "#digital", l: "REDES" }, { h: "#gestion", l: "GESTIÓN" }],
+        };
+        const act = k => all || t === k;
+        const pal = k => ({ [k + "Border"]: t === k ? "#d4a24e" : "rgba(232,228,220,0.12)", [k + "Op"]: act(k) ? 1 : 0.5 });
+        return {
+          navLinks: L[t].concat([{ h: "#bio", l: "BIO" }, { h: "#contacto", l: "CONTACTO" }]),
+          trackTabs: [["all", "TODO"], ["dir", "DIRECCIÓN"], ["redes", "REDES"], ["gestion", "GESTIÓN"]].map(([k, l]) => ({ l, on: () => this.pick(k), bg: t === k ? "#d4a24e" : "transparent", fg: t === k ? "#0c0b09" : "rgba(232,228,220,0.7)" })),
+          menuOpen: !!this.state.menuOpen,
+          menuShow: () => this.setState({ menuOpen: true }),
+          menuHide: () => this.setState({ menuOpen: false }),
+          goTop: e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); },
+          menuItems: [["redes", "Editor y CM", "01"], ["dir", "Realizador Audiovisual", "02"], ["gestion", "Project Manager", "03"], ["all", "Ver todo el portfolio", "↓"]].map(([k, l, n]) => ({ l, n, c: t === k ? "#d4a24e" : "#e8e4dc", on: () => { this.setState({ menuOpen: false }); this.pick(k); } })),
+          pickDir: () => this.pick("dir"), pickRedes: () => this.pick("redes"), pickGestion: () => this.pick("gestion"),
+          ...pal("dir"), ...pal("redes"), ...pal("gestion"),
+          showDir: act("dir"), showRedes: act("redes"), showGestion: act("gestion"),
+          showDigital: act("redes") || t === "gestion",
+          showCampContent: act("redes"), showCampLaunch: act("gestion"),
+          campArea: t === "gestion" ? "gestion" : "redes",
+          showRail: !!this.state.area,
+          railItems: [["redes", "EDITOR Y CM"], ["dir", "REALIZADOR AUDIOVISUAL"], ["gestion", "PROJECT MANAGER"]].filter(([k]) => k === this.state.area).map(([k, l]) => ({ l, go: () => window.scrollTo({ top: 0, behavior: "smooth" }) })),
+          gestionOrder: t === "gestion" ? 0 : 5,
+        };
+      })(),
       videoOpen: !!(cur && cur.k === "v"),
       videoEl: (cur && cur.k === "v") ? React.createElement("video", {
         src: cur.src, key: cur.src, controls: true, autoPlay: true,
