@@ -706,8 +706,8 @@ class Component extends DCLogic {
         ["uploads/_2520187089.mp4", "posters/_2520187089.png", "720/1280"],
       ].map(([src, poster, r], i, arr) => ({ src, poster, r, ready: true, label: `SPOT — ${String(i + 1).padStart(2, "0")}`, onOpen: () => this.setState({ mediaList: arr.map(x => ({ k: "v", src: x[0] })), mediaIdx: i }) })),
       socialVideos: [
-        ["uploads/basket-obras.mp4", "posters/basket-obras.png", "720/1292", "Basket Obras", "PIEZA PARA CLUB OBRAS"],
-        ["uploads/marcha-orgullo-2026.mp4", "posters/marcha-orgullo-2026.png", "720/1280", "Marcha del Orgullo 2026", "PIEZA DE REDES"],
+        ["uploads/redes-basket-obras.mp4", "posters/redes-basket-obras.jpg", "720/1280", "Basket Obras", "PIEZA PARA CLUB OBRAS"],
+        ["uploads/redes-marcha-orgullo-2026.mp4", "posters/redes-marcha-orgullo-2026.jpg", "720/1280", "Marcha del Orgullo 2026", "PIEZA DE REDES"],
         ["uploads/redes-01.mp4", "posters/redes-01.png", "1920/1080", "Romper el Código", "PIEZA DE REDES"],
         ["uploads/02.mp4", "posters/redes-02.png", "1280/720", "Sanción del Matrimonio Igualitario", "EFEMÉRIDE"],
         ["uploads/03.mp4", "posters/redes-03.png", "720/1280", "Día contra la Discriminación por Orientación Sexual", "EFEMÉRIDE"],
